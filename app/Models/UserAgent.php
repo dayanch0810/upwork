@@ -23,6 +23,18 @@ class UserAgent extends Model
 
     //
 
+    public function getDisabled()
+    {
+        return ['False', 'True'][$this->disabled];
+    }
+
+    public function getDisabledColor()
+    {
+        return ['success', 'danger'][$this->disabled];
+    }
+
+    //
+
     public function getUa()
     {
         $ua = array_filter([$this->device, $this->platform, $this->browser, $this->robot ? '(' . $this->robot . ')' : null]);

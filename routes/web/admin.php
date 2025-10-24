@@ -49,6 +49,7 @@ Route::prefix('v1')
                     ->name('clients.')
                     ->group(function () {
                         Route::get('', 'index')->name('index');
+                        Route::get('{slug}', 'show')->name('show')->where(['slug' => '[a-z0-9-]+']);
                     });
 
                 Route::controller(FreelancerController::class)
@@ -56,6 +57,7 @@ Route::prefix('v1')
                     ->name('freelancers.')
                     ->group(function () {
                         Route::get('', 'index')->name('index');
+                        Route::get('{slug}', 'show')->name('show')->where(['slug' => '[a-z0-9-]+']);
                     });
 
                 Route::controller(ProfileController::class)
@@ -63,6 +65,7 @@ Route::prefix('v1')
                     ->name('profiles.')
                     ->group(function () {
                         Route::get('', 'index')->name('index');
+                        Route::get('{slug}', 'show')->name('show')->where(['slug' => '[a-z0-9-]+']);
                     });
 
                 Route::controller(IpAddressController::class)
@@ -126,6 +129,7 @@ Route::prefix('v1')
                     ->name('works.')
                     ->group(function () {
                         Route::get('', 'index')->name('index');
+                        Route::get('{slug}', 'show')->name('show')->where(['slug' => '[a-z0-9-]+']);
                     });
 
                 Route::controller(ProposalController::class)

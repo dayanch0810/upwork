@@ -35,19 +35,20 @@
                     <td>{{ $obj->user_agent }}</td>
                     <td>{{ $obj->hits }}</td>
                     <td>{{ $obj->suspect_hits }}</td>
+                    <td>{{ $obj->getRobot() }}</td>
+{{--                    <td>--}}
+{{--                        <span class="badge bg-{{ $obj->getRobotColor() }}-subtle text-{{ $obj->getRobotColor() }}-emphasis">--}}
+{{--                            {{ $obj->getRobot() }}--}}
+{{--                        </span>--}}
+{{--                    </td>--}}
                     <td>
-                        <span class="badge bg-{{ $obj->robotColor() }}-subtle text-{{ $obj->robotColor() }}-emphasis">
-                            {{ $obj->robot() }}
+                        <span class="badge bg-{{ $obj->getApiColor() }}-subtle text-{{ $obj->getApiColor() }}-emphasis">
+                            {{ $obj->getApi() }}
                         </span>
                     </td>
                     <td>
-                        <span class="badge bg-{{ $obj->apiColor() }}-subtle text-{{ $obj->apiColor() }}-emphasis">
-                            {{ $obj->api() }}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="badge bg-{{ $obj->disabledColor() }}-subtle text-{{ $obj->disabledColor() }}-emphasis">
-                            {{ $obj->disabled() }}
+                        <span class="badge bg-{{ $obj->getDisabledColor() }}-subtle text-{{ $obj->getDisabledColor() }}-emphasis">
+                            {{ $obj->getDisabled() }}
                         </span>
                     </td>
                     <td>{{ $obj->created_at->format('d-m-Y H:i') }}</td>

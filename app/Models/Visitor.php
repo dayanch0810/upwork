@@ -33,32 +33,32 @@ class Visitor extends Model
 
     //
 
-    public function robot()
+    public function getRobot()
     {
         return ['Not Robot', 'Robot'][$this->robot];
     }
 
-    public function robotColor()
-    {
-        return ['success', 'danger'][$this->robot];
-    }
+//    public function getRobotColor()
+//    {
+//        return ['success', 'danger'][$this->robot];
+//    }
 
-    public function api()
+    public function getApi()
     {
         return ['Not API', 'API'][$this->api];
     }
 
-    public function apiColor()
+    public function getApiColor()
     {
         return ['success', 'danger'][$this->api];
     }
 
-    public function disabled()
+    public function getDisabled()
     {
         return ['False', 'True'][$this->disabled];
     }
 
-    public function disabledColor()
+    public function getDisabledColor()
     {
         return ['success', 'danger'][$this->disabled];
     }

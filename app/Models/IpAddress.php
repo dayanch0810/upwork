@@ -23,6 +23,18 @@ class IpAddress extends Model
 
     //
 
+    public function getDisabled()
+    {
+        return ['False', 'True'][$this->disabled];
+    }
+
+    public function getDisabledColor()
+    {
+        return ['success', 'danger'][$this->disabled];
+    }
+
+    //
+
     public function getIp()
     {
         $ip = array_filter([$this->country_code, $this->country_name, $this->city_name]);
