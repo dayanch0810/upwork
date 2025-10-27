@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -27,6 +28,19 @@ class ClientController extends Controller
         return view('admin.client.index')
             ->with([
                 'objs' => $objs,
+            ]);
+    }
+
+    public function show($id)
+    {
+        $obj = Client::where('id', $id)
+            ->with('location', 'works.freelancer', 'myReviews.freelancer', 'freelancerReviews')
+            ->withCount('works', 'myReviews')
+            ->firstOrFail();
+
+        return view('admin.client.show')
+            ->with([
+                'obj' => $obj,
             ]);
     }
 }

@@ -32,4 +32,17 @@ class FreelancerController extends Controller
                 'objs' => $objs,
             ]);
     }
+
+    public function show($id)
+    {
+        $obj = Freelancer::where('id', $id)
+            ->with('location', 'works.client', 'myReviews.client', 'clientReviews')
+            ->withCount('profiles', 'freelancerSkills', 'myReviews', 'works', 'proposals')
+            ->firstOrFail();
+
+        return view('admin.freelancer.show')
+            ->with([
+                'obj' => $obj,
+            ]);
+    }
 }

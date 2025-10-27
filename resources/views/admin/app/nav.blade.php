@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-black shadow-sm px-4" aria-label="Navbar">
+<nav class="navbar navbar-expand-sm navbar-dark bg-black shadow-sm px-4 sticky-top" aria-label="Navbar">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ route('v1.auth.dashboard') }}">
             <div class="fw-bold fs-4">Upwork</div>

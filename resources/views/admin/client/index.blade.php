@@ -3,9 +3,7 @@
     Clients
 @endsection
 @section('content')
-    <div>
-        @include('admin.app.nav')
-    </div>
+    @include('admin.app.nav')
 
     <div class="h3 p-3">
         Clients
@@ -28,7 +26,6 @@
                 <th>Works</th>
                 <th>Reviews</th>
                 <th>Created At</th>
-                <th>Updated At</th>
             </tr>
             </thead>
             <tbody>
@@ -36,7 +33,11 @@
                 <tr>
                     <td>{{ $obj->id }}</td>
                     <td>{{ $obj->location?->name ?? 'Not specified' }}</td>
-                    <td>{{ $obj->first_name }} <br> {{ $obj->last_name }}</td>
+                    <td>
+                        <a href="{{ route('v1.auth.clients.show', $obj->id) }}" class="text-decoration-none">
+                            {{ $obj->first_name }} <br> {{ $obj->last_name }}
+                        </a>
+                    </td>
                     <td>{{ $obj->avatar }}</td>
                     <td>{{ $obj->username }}</td>
                     <td><i class="bi-star-fill text-warning"> </i>{{ $obj->rating }}</td>
@@ -59,7 +60,6 @@
                     <td><a href="{{ route('v1.auth.works.index', ['client' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
                     <td><a href="{{ route('v1.auth.reviews.index', ['client' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->my_reviews_count }}</a></td>
                     <td>{{ $obj->created_at->format('d-m-Y H:i') }}</td>
-                    <td>{{ $obj->updated_at->format('d-m-Y H:i') }}</td>
                 </tr>
             @endforeach
             </tbody>

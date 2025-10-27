@@ -12,7 +12,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
-class Freelancer extends Authenticatable
+class
+Freelancer extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes, HasApiTokens;
 

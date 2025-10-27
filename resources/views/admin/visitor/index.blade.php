@@ -3,9 +3,7 @@
     Visitors
 @endsection
 @section('content')
-    <div>
-        @include('admin.app.nav')
-    </div>
+    @include('admin.app.nav')
 
     <div class="h3 p-3">
         Visitors
@@ -36,11 +34,6 @@
                     <td>{{ $obj->hits }}</td>
                     <td>{{ $obj->suspect_hits }}</td>
                     <td>{{ $obj->getRobot() }}</td>
-{{--                    <td>--}}
-{{--                        <span class="badge bg-{{ $obj->getRobotColor() }}-subtle text-{{ $obj->getRobotColor() }}-emphasis">--}}
-{{--                            {{ $obj->getRobot() }}--}}
-{{--                        </span>--}}
-{{--                    </td>--}}
                     <td>
                         <span class="badge bg-{{ $obj->getApiColor() }}-subtle text-{{ $obj->getApiColor() }}-emphasis">
                             {{ $obj->getApi() }}

@@ -38,4 +38,17 @@ class WorkController extends Controller
                 'objs' => $objs,
             ]);
     }
+
+    public function show($id)
+    {
+        $obj = Work::where('id', $id)
+            ->with('freelancer', 'client', 'profile', 'proposals.freelancer')
+            ->withCount('proposals', 'workSkills')
+            ->firstOrFail();
+
+        return view('admin.work.show')
+            ->with([
+                'obj' => $obj,
+            ]);
+    }
 }

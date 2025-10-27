@@ -3,9 +3,7 @@
     Works
 @endsection
 @section('content')
-    <div>
-        @include('admin.app.nav')
-    </div>
+    @include('admin.app.nav')
 
     <div class="h3 p-3">
         Works
@@ -27,16 +25,16 @@
                 <th>Hours Per Week</th>
                 <th>Work Skills</th>
                 <th>Proposals</th>
-                <th width="7.5%">Last Viewed</th>
                 <th width="7.5%">Created At</th>
-                <th width="7.5%">Updated At</th>
             </tr>
             </thead>
 
             <tbody>
             @foreach($objs as $obj)
                 <tr>
-                    <td rowspan="2">{{ $obj->id }}</td>
+                    <td class="text-center fw-medium text-muted">
+                        <a href="{{ route('v1.auth.works.show', $obj->id) }}" class="text-decoration-none">{{ $obj->id }}</a>
+                    </td>
                     <td>
                         <a href="{{ route('v1.auth.clients.index', ['client' => $obj->client_id]) }}" class="text-decoration-none" target="_blank">
                             {{ $obj->client->first_name }} {{ $obj->client->last_name }}
@@ -83,24 +81,8 @@
                     </td>
                     <td><a href="{{ route('v1.auth.skills.index', ['workSkills' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->work_skills_count }}</a></td>
                     <td><a href="{{ route('v1.auth.proposals.index', ['work' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->proposals_count }}</a></td>
-                    <td>{{ $obj->last_viewed }}</td>
                     <td>{{ $obj->created_at->format('d-m-Y H:i') }}</td>
-                    <td>{{ $obj->updated_at->format('d-m-Y H:i') }}</td>
-                </tr>
-
-                <tr id="body-{{ $obj->id }}" class="bg-light">
-                    <td colspan="2" class="small text-secondary">
-                        <strong>Title</strong>
-                        <div class="text-dark">
-                            {{ $obj->title }}
-                        </div>
-                    </td>
-                    <td colspan="12" class="small text-secondary">
-                        <strong>Body</strong>
-                        <div class="text-dark">
-                            {{ $obj->body }}
-                        </div>
-                    </td>
+{{--                    <td><a href="{{ route('v1.auth.works.show', $obj->id) }}" class="text-decoration-none fs-6 fw-bold">Show</a></td>--}}
                 </tr>
             @endforeach
             </tbody>
