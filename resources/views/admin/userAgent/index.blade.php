@@ -5,8 +5,14 @@
 @section('content')
     @include('admin.app.nav')
 
-    <div class="h3 p-3">
-        User Agent
+    <div class="row align-items-center p-3">
+        <div class="col h3 text-start">
+            User Agent
+        </div>
+
+        <div class="col-auto">
+            @include('admin.app.alert')
+        </div>
     </div>
 
     <div class="table-responsive">

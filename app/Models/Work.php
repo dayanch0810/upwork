@@ -54,6 +54,11 @@ class Work extends Model
 
     //
 
+    public static function experienceLevelList()
+    {
+        return ['Entry Level', 'Intermediate', 'Expert'];
+    }
+
     public function experienceLevel()
     {
         return ['Entry Level', 'Intermediate', 'Expert'][$this->experience_level];
@@ -62,6 +67,11 @@ class Work extends Model
     public function experienceLevelColor()
     {
         return ['danger', 'warning', 'success'][$this->experience_level];
+    }
+
+    public function jobTypeList()
+    {
+        return ['Hourly', 'Fixed Price'];
     }
 
     public function jobType()
@@ -74,6 +84,11 @@ class Work extends Model
         return ['primary', 'secondary'][$this->job_type];
     }
 
+    public function projectTypeList()
+    {
+        return ['One Time', 'Ongoing'];
+    }
+
     public function projectType()
     {
         return ['One Time', 'Ongoing'][$this->project_type];
@@ -84,6 +99,11 @@ class Work extends Model
         return ['primary', 'secondary'][$this->project_type];
     }
 
+    public function projectLengthList()
+    {
+        return ['Less Than 1 Month', '1 to 3 Months', '3 to 6 Months', 'More Than 6 Months'];
+    }
+
     public function projectLength()
     {
         return ['Less Than 1 Month', '1 to 3 Months', '3 to 6 Months', 'More Than 6 Months'][$this->project_length];
@@ -92,6 +112,11 @@ class Work extends Model
     public function projectLengthColor()
     {
         return ['success', 'warning', 'info', 'danger'][$this->project_length];
+    }
+
+    public function hoursPerWeekList()
+    {
+        return ['Less Than 3hrs/week', 'Less Than 30hrs/week'];
     }
 
     public function hoursPerWeek()

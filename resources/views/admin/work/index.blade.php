@@ -5,8 +5,14 @@
 @section('content')
     @include('admin.app.nav')
 
-    <div class="h3 p-3">
-        Works
+    <div class="row align-items-center p-3">
+        <div class="col h3 text-start">
+            Works
+        </div>
+
+        <div class="col-auto">
+            @include('admin.app.alert')
+        </div>
     </div>
 
     <div class="table-responsive">
@@ -24,8 +30,8 @@
                 <th>Project Length</th>
                 <th>Hours Per Week</th>
                 <th>Work Skills</th>
-                <th>Proposals</th>
                 <th width="7.5%">Created At</th>
+                <th class="text-center"><i class="bi-gear"></i></th>
             </tr>
             </thead>
 
@@ -45,10 +51,9 @@
                             {{ $obj->freelancer?->first_name }} {{ $obj->freelancer?->last_name }}
                         </a>
                     </td>
-                    <td>
+                    <td class="text-center">
                         @if($obj->profile_id)
                             <a href="{{ route('v1.auth.profiles.index', ['profile' => $obj->profile_id]) }}" class="text-decoration-none" target="_blank">
-                                <i class="bi-box-arrow-up-right"> </i>
                                 {{ $obj->profile?->id }}
                             </a>
                         @endif
@@ -80,9 +85,39 @@
                         </span>
                     </td>
                     <td><a href="{{ route('v1.auth.skills.index', ['workSkills' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->work_skills_count }}</a></td>
-                    <td><a href="{{ route('v1.auth.proposals.index', ['work' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->proposals_count }}</a></td>
                     <td>{{ $obj->created_at->format('d-m-Y H:i') }}</td>
-{{--                    <td><a href="{{ route('v1.auth.works.show', $obj->id) }}" class="text-decoration-none fs-6 fw-bold">Show</a></td>--}}
+                    <td class="text-center">
+                        <div class="mb-1">
+                            <a href="{{ route('v1.auth.works.edit', $obj->id) }}" class="btn btn-success btn-sm">
+                                <i class="bi-pencil-fill"></i>
+                            </a>
+                        </div>
+                        <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="bi-trash-fill"></i>
+                        </button>
+                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="modal-title fs-5" id="deleteModalLabel">@lang('app.delete')</div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ $obj->id }}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form method="POST" action="{{ route('v1.auth.works.destroy', $obj->id) }}">
+                                            @csrf
+                                            {{ method_field('DELETE') }}
+
+                                            <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-dark btn-sm">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

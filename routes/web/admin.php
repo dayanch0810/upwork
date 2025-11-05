@@ -49,7 +49,10 @@ Route::prefix('v1')
                     ->name('clients.')
                     ->group(function () {
                         Route::get('', 'index')->name('index');
+                        Route::get('create', 'create')->name('create');
+                        Route::post('', 'store')->name('store');
                         Route::get('{id}', 'show')->name('show')->where(['id' => '[0-9]+']);
+                        Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
                     });
 
                 Route::controller(FreelancerController::class)
@@ -57,7 +60,10 @@ Route::prefix('v1')
                     ->name('freelancers.')
                     ->group(function () {
                         Route::get('', 'index')->name('index');
+                        Route::get('create', 'create')->name('create');
+                        Route::post('', 'store')->name('store');
                         Route::get('{id}', 'show')->name('show')->where(['id' => '[0-9-]+']);
+                        Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
                     });
 
                 Route::controller(ProfileController::class)
@@ -65,7 +71,10 @@ Route::prefix('v1')
                     ->name('profiles.')
                     ->group(function () {
                         Route::get('', 'index')->name('index');
+                        Route::get('create', 'create')->name('create');
+                        Route::post('', 'store')->name('store');
                         Route::get('{id}', 'show')->name('show')->where(['id' => '[0-9]+']);
+                        Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
                     });
 
                 Route::controller(IpAddressController::class)
@@ -130,6 +139,9 @@ Route::prefix('v1')
                     ->group(function () {
                         Route::get('', 'index')->name('index');
                         Route::get('{id}', 'show')->name('show')->where(['id' => '[0-9]+']);
+                        Route::get('{id}/edit', 'edit')->name('edit')->where(['id' => '[0-9]+']);
+                        Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
+                        Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
                     });
 
                 Route::controller(ProposalController::class)

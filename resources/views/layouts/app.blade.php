@@ -12,6 +12,6 @@
     <script type="text/javascript" src="{{ asset('js/splide.min.js') }}"></script>
 </head>
 <body>
-    @yield('content')
+@yield('content')
 </body>
 </html>
