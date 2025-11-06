@@ -60,7 +60,7 @@ class WorkController extends Controller
     {
         $obj = Work::findOrFail($id);
         $clients = Client::orderBy('id')->get();
-        $freelancers = Freelancer::orderBy('id')->get();
+        $freelancers = Freelancer::with('profiles')->orderBy('id')->get();
         $profiles = Profile::orderBy('id')->get();
 
         return view('admin.work.edit')

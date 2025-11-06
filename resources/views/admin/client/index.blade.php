@@ -38,7 +38,7 @@
             @foreach($objs as $obj)
                 <tr>
                     <td>{{ $obj->id }}</td>
-                    <td>{{ $obj->location?->name ?? 'Not specified' }}</td>
+                    <td>{{ $obj->location?->name }}</td>
                     <td>
                         <a href="{{ route('v1.auth.clients.show', $obj->id) }}" class="text-decoration-none">
                             {{ $obj->first_name }} <br> {{ $obj->last_name }}

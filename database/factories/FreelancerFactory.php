@@ -20,11 +20,11 @@ class FreelancerFactory extends Factory
      */
     public function definition(): array
     {
-        $location = fake()->boolean(90) ? Location::inRandomOrder()->first() : null;
+        $location = Location::inRandomOrder()->first();
 
         return [
             'uuid' => fake()->uuid(),
-            'location_id' => isset($location) ? $location->id : null,
+            'location_id' => $location->id,
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'avatar' => null,

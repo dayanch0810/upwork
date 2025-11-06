@@ -24,7 +24,7 @@
             <div class="col-auto py-2">
                 <div class="fs-2 fw-bold">{{ $obj->first_name }} {{ $obj->last_name }}</div>
                 <div class="fs-5 fw-semibold text-secondary">
-                    <i class="bi-geo-alt-fill"></i>{{ $obj->location ? $obj->location->name : 'No location specified' }} / <i class="bi-person-fill"></i>{{ $obj->username }}
+                    <i class="bi-geo-alt-fill"></i>{{ $obj->location->name }} / <i class="bi-person-fill"></i>{{ $obj->username }}
                 </div>
             </div>
         </div>

@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('freelancers', function (Blueprint $table) {
             $table->id();
             $table->uuid();
-            $table->foreignId('location_id')->index()->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('location_id')->index()->constrained()->cascadeOnDelete();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('avatar')->nullable();

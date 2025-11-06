@@ -13,6 +13,7 @@ class LocationSeeder extends Seeder
     public function run(): void
     {
         $countries = [
+            'Not specified',
             'Argentina',
             'Australia',
             'Bangladesh',

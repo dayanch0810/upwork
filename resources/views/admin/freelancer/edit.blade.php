@@ -10,23 +10,26 @@
                 <div class="h4 mb-3">
                     <a href="{{ route('v1.auth.freelancers.index') }}" class="text-decoration-none">
                         <i class="bi-chevron-left"></i> Freelancers
-                    </a> / @lang('app.add')
+                    </a> / Edit
                 </div>
 
-                <form action="{{ route('v1.auth.freelancers.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('v1.auth.freelancers.update', $obj->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    {{ method_field('PUT') }}
 
                     <div class="mb-3">
-                        <label for="category" class="form-label fw-semibold">
+                        <label for="location" class="form-label fw-semibold">
                             @lang('app.location') <span class="text-danger">*</span>
                         </label>
-                        <select class="form-select @error('location') is-invalid @enderror" id="location" name="location" required autofocus>
+                        <select class="form-select @error('location') is-invalid @enderror"
+                                id="location" name="location" required autofocus>
                             @foreach($locations as $location)
-                                <option value="{{ $location->id }}">
+                                <option value="{{ $location->id }}" {{ $location->id == $obj->location_id ? 'selected':'' }}>
                                     {{ $location->name }}
                                 </option>
                             @endforeach
                         </select>
+
                         @error('location')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                         @enderror
@@ -38,7 +41,7 @@
                                 First Name <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name"
-                                   name="first_name" value="{{ old('first_name') }}" required>
+                                   name="first_name" value="{{ $obj->first_name }}" required>
                             @error('first_name')
                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -49,7 +52,7 @@
                                 Last Name <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name"
-                                   name="last_name" value="{{ old('last_name') }}" required>
+                                   name="last_name" value="{{ $obj->last_name }}" required>
                             @error('last_name')
                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -73,10 +76,10 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="username" class="form-label fw-semibold">
-                                Username <span class="text-danger">*</span>
+                                Username (phone) <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control @error('username') is-invalid @enderror" id="username"
-                                   name="username" value="{{ old('username') }}" required>
+                                   name="username" value="{{ $obj->username }}" required>
                             @error('username')
                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -87,7 +90,7 @@
                                 Password <span class="text-danger">*</span>
                             </label>
                             <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                   id="password" name="password" required>
+                                   id="password" name="password">
                             @error('password')
                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -98,7 +101,7 @@
                                 <label for="password_confirmation" class="form-label fw-semibold">
                                     Confirm Password <span class="text-danger">*</span>
                                 </label>
-                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
                             </div>
                         </div>
                     </div>
@@ -109,7 +112,7 @@
                                 Rating <span class="text-danger">*</span>
                             </label>
                             <input type="number" step="0.1" min="0" class="form-control @error('rating') is-invalid @enderror" id="rating"
-                                   name="rating" value="{{ old('rating', 0) }}" required>
+                                   name="rating" value="{{ $obj->rating }}" required>
                             @error('rating')
                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -122,7 +125,7 @@
 
                             <select class="form-select @error('verified') is-invalid @enderror"
                                     id="verified" name="verified" required>
-                                @foreach(\App\Models\Freelancer::verifiedList() as $key => $label)
+                                @foreach($obj->verifiedList() as $key => $label)
                                     <option value="{{ $key }}" {{ old('verified', $obj->verified ?? 0) == $key ? 'selected' : '' }}>
                                         {{ $label }}
                                     </option>
@@ -139,7 +142,7 @@
                                 Total Jobs <span class="text-danger">*</span>
                             </label>
                             <input type="number" min="0" class="form-control @error('total_jobs') is-invalid @enderror"
-                                   id="total_jobs" name="total_jobs" value="{{ old('total_jobs', 0) }}" required>
+                                   id="total_jobs" name="total_jobs" value="{{ $obj->total_jobs }}" required>
                             @error('total_jobs')
                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -150,16 +153,15 @@
                                 Total Earnings <span class="text-danger">*</span>
                             </label>
                             <input type="number" min="0" class="form-control @error('total_earnings') is-invalid @enderror"
-                                   id="total_earnings" name="total_earnings" value="{{ old('total_earnings', 0) }}" required>
+                                   id="total_earnings" name="total_earnings" value="{{ $obj->total_earnings }}" required>
                             @error('total_earnings')
                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
 
-
                     <button type="submit" class="btn btn-primary w-100">
-                        @lang('app.add')
+                        Update
                     </button>
                 </form>
 

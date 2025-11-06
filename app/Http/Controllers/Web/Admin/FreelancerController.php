@@ -62,14 +62,14 @@ class FreelancerController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'location' => ['nullable', 'string', 'between:0,50'],
+            'location' => ['required', 'string', 'between:0,50'],
             'first_name' => ['required', 'string', 'max:50'],
             'last_name' => ['required', 'string', 'max:50'],
             'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048', 'dimensions:width=1000,height=1000'],
             'username' => ['required', 'integer', 'regex:/^(6[0-5]\d{6}|71\d{6})$/', 'unique:freelancers,username'],
             'password' => ['required', 'string', 'between:8,50'],
             'password_confirmation' => ['same:password'],
-            'rating' => ['required', 'integer', 'between:0,5'],
+            'rating' => ['required', 'numeric', 'between:0,5'],
             'verified' => ['required', 'integer', 'between:0,1'],
             'total_jobs' => ['required', 'integer', 'min:0'],
             'total_earnings' => ['required', 'integer', 'min:0'],
@@ -97,16 +97,81 @@ class FreelancerController extends Controller
 
         if ($request->hasfile('avatar')) {
             $avatar = $request->file('avatar');
-            $avatarName = str()->random(5) . '.' . $request->file()->extension();
-            Storage::put('public/product/' . $avatarName, $avatar);
+            $avatarName = str()->random(5) . '.' . $avatar->extension();
+            Storage::put('public/freelancer/' . $avatarName, $avatar);
 
-            $obj->avatar = 'product/' . $avatarName;
+            $obj->avatar = 'freelancers/' . $avatarName;
             $obj->update();
         }
 
         return to_route('v1.auth.freelancers.index')
             ->with([
                 'success' => 'Freelancer added',
+            ]);
+    }
+
+    public function edit($id)
+    {
+        $obj = Freelancer::findOrFail($id);
+        $locations = Location::orderBy('id')->get();
+
+        return view('admin.freelancer.edit')
+            ->with([
+                'obj' => $obj,
+                'locations' => $locations,
+            ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'location' => ['required', 'integer', 'exists:locations,id'],
+            'first_name' => ['required', 'string', 'max:50'],
+            'last_name' => ['required', 'string', 'max:50'],
+            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048', 'dimensions:width=1000,height=1000'],
+            'username' => ['required', 'integer', 'regex:/^(6[0-5]\d{6}|71\d{6})$/', 'unique:freelancers,username,' . $id],
+            'password' => ['nullable', 'string', 'between:8,50'],
+            'password_confirmation' => ['same:password'],
+            'rating' => ['required', 'numeric', 'between:0,5'],
+            'verified' => ['required', 'integer', 'between:0,1'],
+            'total_jobs' => ['required', 'integer', 'min:0'],
+            'total_earnings' => ['required', 'integer', 'min:0'],
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $location = Location::findOrFail($request->location);
+
+        $obj = Freelancer::findOrFail($id);
+        $obj->location_id = $location->id;
+        $obj->first_name = $request->first_name;
+        $obj->last_name = $request->last_name;
+        $obj->avatar = $request->avatar;
+        $obj->username = $request->username;
+        $obj->password = $request->password ?? $obj->password;
+        $obj->rating = $request->rating;
+        $obj->verified = $request->verified;
+        $obj->total_jobs = $request->total_jobs;
+        $obj->total_earnings = $request->total_earnings;
+
+        if ($request->hasFile('avatar')) {
+            if ($obj->avatar && Storage::exists('public/' . $obj->avatar)) {
+                Storage::delete('public/' . $obj->avatar);
+            }
+
+            $avatarName = str()->random(5) . '.' . $request->file('avatar')->extension();
+            $request->file('avatar')->storeAs('public/avatars', $avatarName);
+            $obj->avatar = 'avatars/' . $avatarName;
+        }
+
+        $obj->save();
+
+        return to_route('v1.auth.freelancers.index')
+            ->with([
+                'success' => 'Update successfully',
             ]);
     }
 

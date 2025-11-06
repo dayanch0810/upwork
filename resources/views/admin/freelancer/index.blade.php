@@ -41,7 +41,7 @@
             @foreach($objs as $obj)
                 <tr>
                     <td>{{ $obj->id }}</td>
-                    <td>{{ $obj->location?->name ?? 'Not specified' }}</td>
+                    <td>{{ $obj->location?->name }}</td>
                     <td>
                         <a href="{{ route('v1.auth.freelancers.show', $obj->id) }}" class="text-decoration-none">
                             {{ $obj->first_name }} <br> {{ $obj->last_name }}
@@ -66,6 +66,11 @@
                     <td><a href="{{ route('v1.auth.proposals.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->proposals_count }}</a></td>
                     <td>{{ $obj->created_at->format('d-m-Y H:i') }}</td>
                     <td class="text-center">
+                        <div class="mb-1">
+                            <a href="{{ route('v1.auth.freelancers.edit', $obj->id) }}" class="btn btn-success btn-sm">
+                                <i class="bi-pencil-fill"></i>
+                            </a>
+                        </div>
                         <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
                             <i class="bi-trash-fill"></i>
                         </button>

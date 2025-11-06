@@ -39,6 +39,13 @@
                                 Freelancer <span class="text-danger">*</span>
                             </label>
                             <select class="form-select @error('freelancer') is-invalid @enderror" id="freelancer" name="freelancer" required autofocus>
+
+                                @if($obj->freelancer_id == null)
+                                    <option value="" {{ $obj->freelancer_id === null ? 'selected' : '' }}>
+                                        Not Freelancer
+                                    </option>
+                                @endif
+
                                 @foreach($freelancers as $freelancer)
                                     <option value="{{ $freelancer->id }}" {{ $freelancer->id == $obj->freelancer_id ? 'selected':'' }}>
                                         {{ $freelancer->first_name }} {{ $freelancer->last_name }}
@@ -57,7 +64,14 @@
                                 Profile ID <span class="text-danger">*</span>
                             </label>
                             <select class="form-select @error('profile') is-invalid @enderror" id="profile" name="profile" required autofocus>
-                                @foreach($profiles as $profile)
+
+                                @if($obj->profile_id == null)
+                                    <option value="" {{ $obj->profile_id === null ? 'selected' : '' }}>
+                                        Not Profile
+                                    </option>
+                                @endif
+
+                                @foreach($profiles->where('freelancer_id', $obj->freelancer_id) as $profile)
                                     <option value="{{ $profile->id }}" {{ $profile->id == $obj->profile_id ? 'selected':'' }}>
                                         {{ $profile->id }}
                                     </option>
@@ -207,4 +221,34 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const allProfiles = @json($profiles);
+
+        const freelancerSelect = document.getElementById('freelancer');
+        const profileSelect = document.getElementById('profile');
+
+        freelancerSelect.addEventListener('change', function () {
+            const freelancerId = parseInt(this.value);
+
+            profileSelect.innerHTML = '';
+
+            const filteredProfiles = allProfiles.filter(p => p.freelancer_id === freelancerId);
+
+            if (filteredProfiles.length === 0) {
+                const opt = document.createElement('option');
+                opt.value = '';
+                opt.textContent = 'No profiles found';
+                profileSelect.appendChild(opt);
+                return;
+            }
+
+            filteredProfiles.forEach(profile => {
+                const opt = document.createElement('option');
+                opt.value = profile.id;
+                opt.textContent = profile.id;
+                profileSelect.appendChild(opt);
+            });
+        });
+    </script>
 @endsection
