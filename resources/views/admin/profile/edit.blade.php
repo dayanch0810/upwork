@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     Profiles
 @endsection
@@ -8,12 +8,12 @@
             <div class="col-md-10 col-lg-8 col-xl-6">
 
                 <div class="h4 mb-3">
-                    <a href="{{ route('v1.auth.profiles.index') }}" class="text-decoration-none">
+                    <a href="{{ route('auth.profiles.index') }}" class="text-decoration-none">
                         <i class="bi-chevron-left"></i> Profiles
                     </a> / Edit
                 </div>
 
-                <form action="{{ route('v1.auth.profiles.update', $obj->id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('auth.profiles.update', $obj->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     {{ method_field('PUT') }}
 
@@ -65,7 +65,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">
-                        @lang('app.update')
+                        Update
                     </button>
                 </form>
 

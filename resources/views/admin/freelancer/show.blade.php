@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     {{ $obj->first_name }} {{ $obj->last_name }}
 @endsection
@@ -70,12 +70,12 @@
                     <div class="py-2">
                         <div class="py-1">
                             <div class="fs-5 fw-bold">Created at</div>
-                            <div>{{ $obj->created_at->format('d-m-Y H:i') }}</div>
+                            <div>{{ $obj->created_at->format('d.m.Y H:i') }}</div>
                         </div>
 
                         <div class="">
                             <div class="fs-5 fw-bold">Updated at</div>
-                            <div>{{ $obj->updated_at->format('d-m-Y H:i') }}</div>
+                            <div>{{ $obj->updated_at->format('d.m.Y H:i') }}</div>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                 @foreach($obj->freelancerSkills as $skill)
                     <div class="fs-6 fw-semibold badge bg-secondary-subtle text-secondary-emphasis">{{ $skill->name }}</div>
                 @endforeach
-                <div class="fs-4 fw-bold py-4 px-2">Works and Reviews</div>
+                <div class="fs-4 fw-bold pt-3 px-2">More</div>
                 <div class="row row-cols-2 p-2">
                     <div class="">
                         <div id="tabWorks" class="btn btn-dark border-0 border-bottom border-success border-4 fw-bold">
@@ -105,7 +105,7 @@
                 <div id="worksSection">
                     @foreach($obj->works as $work)
                         <div class="border rounded p-3 mb-2">
-                            <div class="fs-5 fw-bold text-success"><a href="{{ route('v1.auth.clients.show', $work->client_id) }}" class="text-decoration-none text-success">{{ $work->client->first_name }} {{ $work->client->last_name }}</a><span class="text-dark"> / Work ID: <a href="{{ route('v1.auth.works.show', $work->id) }}" class="text-decoration-none text-success">{{ $work->id }}</a></span></div>
+                            <div class="fs-5 fw-bold text-success"><a href="{{ route('auth.clients.show', $work->client_id) }}" class="text-decoration-none text-success">{{ $work->client->first_name }} {{ $work->client->last_name }}</a><span class="text-dark"> / Work ID: <a href="{{ route('auth.works.show', $work->id) }}" class="text-decoration-none text-success">{{ $work->id }}</a></span></div>
                             <div class="fw-semibold small mb-1">{{ $work->projectLength() }}</div>
                             <div class="d-flex justify-content-between text-secondary pt-2">
                                 <span class="badge bg-secondary-subtle text-secondary-emphasis">${{ $work->price }}</span>
@@ -120,11 +120,11 @@
                 <div id="reviewsSection" style="display: none;">
                     @foreach($obj->myReviews as $review)
                         <div class="p-3 border rounded mb-2">
-                            <div class="fs-5 fw-bold text-success"><a href="{{ route('v1.auth.clients.show', $review->client_id) }}" class="text-decoration-none text-success">{{ $review->client?->first_name }} {{ $review->client->last_name }}</a></div>
+                            <div class="fs-5 fw-bold text-success"><a href="{{ route('auth.clients.show', $review->client_id) }}" class="text-decoration-none text-success">{{ $review->client?->first_name }} {{ $review->client->last_name }}</a></div>
                             <div class="row g-2">
                                 <div class="col-auto">
                                     @foreach(range(1, 5) as $i)
-                                        @if(intval($review->rating) >= $i)
+                                        @if(($review->rating) >= $i)
                                             <i class="bi-star-fill text-warning"></i>
                                         @else
                                             <i class="bi-star text-warning"></i>
@@ -149,7 +149,7 @@
                 <div id="proposalsSection" style="display: none;">
                     @foreach($obj->proposals as $proposal)
                         <div class="p-3 border rounded mb-2">
-                            <div class="fs-5 fw-bold">Work ID: <a href="{{ route('v1.auth.works.show', $proposal->work_id) }}" class="text-decoration-none">{{ $proposal->work_id }}</a></div>
+                            <div class="fs-5 fw-bold">Work ID: <a href="{{ route('auth.works.show', $proposal->work_id) }}" class="text-decoration-none">{{ $proposal->work_id }}</a></div>
                             <div class="text-secondary">{{ $proposal->cover_letter }}</div>
                             <div class="badge bg-{{ $proposal->statusColor() }}-subtle text-{{ $proposal->statusColor() }}-emphasis">{{ $proposal->status() }}</div>
                         </div>

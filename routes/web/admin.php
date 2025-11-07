@@ -18,143 +18,132 @@ use App\Http\Controllers\Web\Admin\VisitorController;
 use App\Http\Controllers\Web\Admin\WorkController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')
-    ->name('v1.')
+Route::controller(AuthController::class)
+    ->middleware('guest')
+    ->prefix('admin')
+    ->name('admin.')
     ->group(function () {
-        Route::controller(AuthController::class)
-            ->middleware('guest')
-            ->prefix('admin')
-            ->name('admin.')
+        Route::get('login', 'create')->name('login');
+        Route::post('login', 'store');
+        Route::post('logout', 'destroy')->name('logout')->middleware('auth');
+    });
+
+Route::middleware('auth')
+    ->prefix('auth')
+    ->name('auth.')
+    ->group(function () {
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::controller(AdminController::class)
+            ->prefix('admins')
+            ->name('admins.')
             ->group(function () {
-                Route::get('login', 'create')->name('login');
-                Route::post('login', 'store');
-                Route::post('logout', 'destroy')->name('logout')->middleware('auth');
+                Route::get('', 'index')->name('index');
             });
 
-        Route::middleware('auth')
-            ->prefix('auth')
-            ->name('auth.')
+        Route::controller(ClientController::class)
+            ->prefix('clients')
+            ->name('clients.')
             ->group(function () {
-                Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+                Route::get('', 'index')->name('index');
+                Route::get('{id}', 'show')->name('show')->where(['id' => '[0-9]+']);
+                Route::get('create', 'create')->name('create');
+                Route::post('', 'store')->name('store');
+                Route::get('{id}/edit', 'edit')->name('edit')->where(['id' => '[0-9]+']);
+                Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
+                Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
+            });
 
-                Route::controller(AdminController::class)
-                    ->prefix('admins')
-                    ->name('admins.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                    });
+        Route::controller(FreelancerController::class)
+            ->prefix('freelancers')
+            ->name('freelancers.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('{id}', 'show')->name('show')->where(['id' => '[0-9]+']);
+                Route::get('create', 'create')->name('create');
+                Route::post('', 'store')->name('store');
+                Route::get('{id}/edit', 'edit')->name('edit')->where(['id' => '[0-9]+']);
+                Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
+                Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
+            });
 
-                Route::controller(ClientController::class)
-                    ->prefix('clients')
-                    ->name('clients.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                        Route::get('{id}', 'show')->name('show')->where(['id' => '[0-9]+']);
-                        Route::get('create', 'create')->name('create');
-                        Route::post('', 'store')->name('store');
-                        Route::get('{id}/edit', 'edit')->name('edit')->where(['id' => '[0-9]+']);
-                        Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
-                        Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
-                    });
+        Route::controller(ProfileController::class)
+            ->prefix('profiles')
+            ->name('profiles.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('{id}', 'show')->name('show')->where(['id' => '[0-9]+']);
+                Route::get('create', 'create')->name('create');
+                Route::post('', 'store')->name('store');
+                Route::get('{id}/edit', 'edit')->name('edit')->where(['id' => '[0-9]+']);
+                Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
+                Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
+            });
 
-                Route::controller(FreelancerController::class)
-                    ->prefix('freelancers')
-                    ->name('freelancers.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                        Route::get('{id}', 'show')->name('show')->where(['id' => '[0-9]+']);
-                        Route::get('create', 'create')->name('create');
-                        Route::post('', 'store')->name('store');
-                        Route::get('{id}/edit', 'edit')->name('edit')->where(['id' => '[0-9]+']);
-                        Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
-                        Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
-                    });
+        Route::controller(IpAddressController::class)
+            ->prefix('ipAddress')
+            ->name('ipAddress.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+            });
 
-                Route::controller(ProfileController::class)
-                    ->prefix('profiles')
-                    ->name('profiles.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                        Route::get('{id}', 'show')->name('show')->where(['id' => '[0-9]+']);
-                        Route::get('create', 'create')->name('create');
-                        Route::post('', 'store')->name('store');
-                        Route::get('{id}/edit', 'edit')->name('edit')->where(['id' => '[0-9]+']);
-                        Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
-                        Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
-                    });
+        Route::controller(UserAgentController::class)
+            ->prefix('userAgents')
+            ->name('userAgents.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+            });
 
-                Route::controller(IpAddressController::class)
-                    ->prefix('ipAddress')
-                    ->name('ipAddress.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                    });
+        Route::controller(AuthAttemptController::class)
+            ->prefix('authAttempts')
+            ->name('authAttempts.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+            });
 
-                Route::controller(UserAgentController::class)
-                    ->prefix('userAgents')
-                    ->name('userAgents.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                    });
+        Route::controller(VisitorController::class)
+            ->prefix('visitors')
+            ->name('visitors.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+            });
 
-                Route::controller(AuthAttemptController::class)
-                    ->prefix('authAttempts')
-                    ->name('authAttempts.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                    });
+        Route::controller(SkillController::class)
+            ->prefix('skills')
+            ->name('skills.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+            });
 
-                Route::controller(VisitorController::class)
-                    ->prefix('visitors')
-                    ->name('visitors.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                    });
+        Route::controller(LocationController::class)
+            ->prefix('locations')
+            ->name('locations.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+            });
 
-                Route::controller(SkillController::class)
-                    ->prefix('skills')
-                    ->name('skills.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                    });
+        Route::controller(VerificationController::class)
+            ->prefix('verifications')
+            ->name('verifications.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+            });
 
-                Route::controller(LocationController::class)
-                    ->prefix('locations')
-                    ->name('locations.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                    });
+        Route::controller(ReviewController::class)
+            ->prefix('reviews')
+            ->name('reviews.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+            });
 
-                Route::controller(VerificationController::class)
-                    ->prefix('verifications')
-                    ->name('verifications.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                    });
-
-                Route::controller(ReviewController::class)
-                    ->prefix('reviews')
-                    ->name('reviews.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                    });
-
-                Route::controller(WorkController::class)
-                    ->prefix('works')
-                    ->name('works.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                        Route::get('{id}', 'show')->name('show')->where(['id' => '[0-9]+']);
-                        Route::get('{id}/edit', 'edit')->name('edit')->where(['id' => '[0-9]+']);
-                        Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
-                        Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
-                    });
-
-                Route::controller(ProposalController::class)
-                    ->prefix('proposals')
-                    ->name('proposals.')
-                    ->group(function () {
-                        Route::get('', 'index')->name('index');
-                    });
+        Route::controller(WorkController::class)
+            ->prefix('works')
+            ->name('works.')
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('{id}', 'show')->name('show')->where(['id' => '[0-9]+']);
+                Route::get('{id}/edit', 'edit')->name('edit')->where(['id' => '[0-9]+']);
+                Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
+                Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
             });
     });

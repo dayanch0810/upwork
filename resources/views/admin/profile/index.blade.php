@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     Profiles
 @endsection
@@ -11,7 +11,7 @@
         </div>
 
         <div class="col text-end">
-            <a href="{{ route('v1.auth.profiles.create') }}" class="btn btn-dark">Add <i class="bi-plus"></i></a>
+            <a href="{{ route('auth.profiles.create') }}" class="btn btn-dark">Add <i class="bi-plus"></i></a>
         </div>
     </div>
 
@@ -24,7 +24,6 @@
                 <th>Title</th>
                 <th>Body</th>
                 <th>Works</th>
-                <th>Proposals</th>
                 <th width="8%">Created At</th>
                 <th class="text-center"><i class="bi-gear"></i></th>
             </tr>
@@ -34,18 +33,17 @@
                 <tr>
                     <td>{{ $obj->id }}</td>
                     <td>
-                        <a href="{{ route('v1.auth.freelancers.index', ['freelancer' => $obj->freelancer_id]) }}" class="text-decoration-none" target="_blank">
+                        <a href="{{ route('auth.freelancers.index', ['freelancer' => $obj->freelancer_id]) }}" class="text-decoration-none" target="_blank">
                             {{ $obj->freelancer?->first_name }} {{ $obj->freelancer?->last_name }}
                         </a>
                     </td>
                     <td>{{ $obj->title }}</td>
                     <td>{{ $obj->body }}</td>
-                    <td><a href="{{ route('v1.auth.works.index', ['profile' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
-                    <td><a href="{{ route('v1.auth.proposals.index', ['profile' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->proposals_count }}</a></td>
-                    <td>{{ $obj->created_at->format('d-m-Y H:i') }}</td>
+                    <td><a href="{{ route('auth.works.index', ['profile' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
+                    <td>{{ $obj->created_at->format('d.m.Y H:i') }}</td>
                     <td class="text-center">
                         <div class="mb-1">
-                            <a href="{{ route('v1.auth.profiles.edit', $obj->id) }}" class="btn btn-success btn-sm">
+                            <a href="{{ route('auth.profiles.edit', $obj->id) }}" class="btn btn-success btn-sm">
                                 <i class="bi-pencil-fill"></i>
                             </a>
                         </div>
@@ -63,7 +61,7 @@
                                         {{ $obj->id }}
                                     </div>
                                     <div class="modal-footer">
-                                        <form method="POST" action="{{ route('v1.auth.profiles.destroy', $obj->id) }}">
+                                        <form method="POST" action="{{ route('auth.profiles.destroy', $obj->id) }}">
                                             @csrf
                                             {{ method_field('DELETE') }}
 

@@ -114,7 +114,7 @@ class WorkController extends Controller
         $obj->hours_per_week = $request->hours_per_week;
         $obj->update();
 
-        return to_route('v1.auth.works.index')
+        return to_route('auth.works.index')
             ->with([
                 'success' => 'Update successfully',
             ]);
@@ -125,7 +125,7 @@ class WorkController extends Controller
         $obj = Work::findOrFail($id);
         $obj->delete();
 
-        return to_route('v1.auth.works.index')
+        return to_route('auth.works.index')
             ->with([
                 'success' => 'Work deleted',
             ]);

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     Works
 @endsection
@@ -8,12 +8,12 @@
             <div class="col-md-10 col-lg-8 col-xl-6">
 
                 <div class="h4 mb-3">
-                    <a href="{{ route('v1.auth.works.index') }}" class="text-decoration-none">
+                    <a href="{{ route('auth.works.index') }}" class="text-decoration-none">
                         <i class="bi-chevron-left"></i> Works
                     </a> / Edit
                 </div>
 
-                <form action="{{ route('v1.auth.works.update', $obj->id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('auth.works.update', $obj->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     {{ method_field('PUT') }}
 
@@ -96,7 +96,7 @@
 
                         <div class="col">
                             <label for="price" class="form-label fw-semibold">
-                                @lang('app.price') <span class="text-danger">*</span>
+                                Price <span class="text-danger">*</span>
                             </label>
                             <input type="number" step="0.1" min="0"
                                    class="form-control @error('price') is-invalid @enderror" id="price"
@@ -214,7 +214,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">
-                        @lang('app.update')
+                        Update
                     </button>
                 </form>
 

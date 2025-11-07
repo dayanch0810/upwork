@@ -10,7 +10,8 @@ class AuthAttemptController extends Controller
 {
     public function index()
     {
-        $objs = AuthAttempt::orderBy('id', 'desc')
+        $objs = AuthAttempt::with('ipAddress', 'userAgent')
+            ->orderBy('id')
             ->paginate();
 
         return view('admin.authAttempt.index')

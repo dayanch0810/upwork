@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     Freelancers
 @endsection
@@ -11,7 +11,7 @@
         </div>
 
         <div class="col text-end">
-            <a href="{{ route('v1.auth.freelancers.create') }}" class="btn btn-dark">Add <i class="bi-plus"></i></a>
+            <a href="{{ route('auth.freelancers.create') }}" class="btn btn-dark">Add <i class="bi-plus"></i></a>
         </div>
     </div>
 
@@ -32,7 +32,6 @@
                 <th>Skills</th>
                 <th>Reviews</th>
                 <th>Works</th>
-                <th>Proposals</th>
                 <th>Created At</th>
                 <th class="text-center"><i class="bi-gear"></i></th>
             </tr>
@@ -43,7 +42,7 @@
                     <td>{{ $obj->id }}</td>
                     <td>{{ $obj->location?->name }}</td>
                     <td>
-                        <a href="{{ route('v1.auth.freelancers.show', $obj->id) }}" class="text-decoration-none">
+                        <a href="{{ route('auth.freelancers.show', $obj->id) }}" class="text-decoration-none">
                             {{ $obj->first_name }} <br> {{ $obj->last_name }}
                         </a>
                     </td>
@@ -59,15 +58,14 @@
                     </td>
                     <td><i class="bi-briefcase"></i> {{ $obj->total_jobs }}</td>
                     <td><i class="bi-currency-dollar"></i>{{ $obj->total_earnings }}</td>
-                    <td><a href="{{ route('v1.auth.profiles.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->profiles_count }}</a></td>
-                    <td><a href="{{ route('v1.auth.skills.index', ['freelancerSkills' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->freelancer_skills_count }}</a></td>
-                    <td><a href="{{ route('v1.auth.reviews.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->my_reviews_count }}</a></td>
-                    <td><a href="{{ route('v1.auth.works.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
-                    <td><a href="{{ route('v1.auth.proposals.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->proposals_count }}</a></td>
-                    <td>{{ $obj->created_at->format('d-m-Y H:i') }}</td>
+                    <td><a href="{{ route('auth.profiles.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->profiles_count }}</a></td>
+                    <td><a href="{{ route('auth.skills.index', ['freelancerSkills' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->freelancer_skills_count }}</a></td>
+                    <td><a href="{{ route('auth.reviews.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->my_reviews_count }}</a></td>
+                    <td><a href="{{ route('auth.works.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
+                    <td>{{ $obj->created_at->format('d.m.Y H:i') }}</td>
                     <td class="text-center">
                         <div class="mb-1">
-                            <a href="{{ route('v1.auth.freelancers.edit', $obj->id) }}" class="btn btn-success btn-sm">
+                            <a href="{{ route('auth.freelancers.edit', $obj->id) }}" class="btn btn-success btn-sm">
                                 <i class="bi-pencil-fill"></i>
                             </a>
                         </div>
@@ -85,7 +83,7 @@
                                         {{ $obj->id }}
                                     </div>
                                     <div class="modal-footer">
-                                        <form method="POST" action="{{ route('v1.auth.freelancers.destroy', $obj->id) }}">
+                                        <form method="POST" action="{{ route('auth.freelancers.destroy', $obj->id) }}">
                                             @csrf
                                             {{ method_field('DELETE') }}
 

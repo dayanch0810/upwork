@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     Clients
 @endsection
@@ -40,7 +40,7 @@
                     <td>{{ $obj->id }}</td>
                     <td>{{ $obj->location?->name }}</td>
                     <td>
-                        <a href="{{ route('v1.auth.clients.show', $obj->id) }}" class="text-decoration-none">
+                        <a href="{{ route('auth.clients.show', $obj->id) }}" class="text-decoration-none">
                             {{ $obj->first_name }} <br> {{ $obj->last_name }}
                         </a>
                     </td>
@@ -63,9 +63,9 @@
                     </td>
                     <td><i class="bi-briefcase"></i> {{ $obj->total_jobs }}</td>
                     <td><i class="bi-currency-dollar"></i>{{ $obj->total_spent }}</td>
-                    <td><a href="{{ route('v1.auth.works.index', ['client' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
-                    <td><a href="{{ route('v1.auth.reviews.index', ['client' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->my_reviews_count }}</a></td>
-                    <td>{{ $obj->created_at->format('d-m-Y H:i') }}</td>
+                    <td><a href="{{ route('auth.works.index', ['client' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
+                    <td><a href="{{ route('auth.reviews.index', ['client' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->my_reviews_count }}</a></td>
+                    <td>{{ $obj->created_at->format('d.m.Y H:i') }}</td>
                 </tr>
             @endforeach
             </tbody>

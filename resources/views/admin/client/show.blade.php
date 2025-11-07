@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     {{ $obj->first_name }} {{ $obj->last_name }}
 @endsection
@@ -78,12 +78,12 @@
                     <div class="py-2">
                         <div class="py-1">
                             <div class="fs-5 fw-bold">Created at</div>
-                            <div>{{ $obj->created_at->format('d-m-Y H:i') }}</div>
+                            <div>{{ $obj->created_at->format('d.m.Y H:i') }}</div>
                         </div>
 
                         <div class="">
                             <div class="fs-5 fw-bold">Updated at</div>
-                            <div>{{ $obj->updated_at->format('d-m-Y H:i') }}</div>
+                            <div>{{ $obj->updated_at->format('d.m.Y H:i') }}</div>
                         </div>
                     </div>
                 </div>
@@ -105,11 +105,11 @@
                         <div class="border rounded p-3 mb-2">
                             <div class="fs-5 fw-bold text-success">
                                 @if($work->freelancer_id)
-                                    <a href="{{ route('v1.auth.freelancers.show', $work->freelancer_id) }}" class="text-decoration-none text-success">{{ $work->freelancer?->first_name }} {{ $work->freelancer?->last_name }}</a>
+                                    <a href="{{ route('auth.freelancers.show', $work->freelancer_id) }}" class="text-decoration-none text-success">{{ $work->freelancer?->first_name }} {{ $work->freelancer?->last_name }}</a>
                                 @else
                                     Not Freelancer
                                 @endif
-                                <span class="text-dark"> / Work ID: <a href="{{ route('v1.auth.works.show', $work->id) }}" class="text-decoration-none text-success">{{ $work->id }}</a></span></div>
+                                <span class="text-dark"> / Work ID: <a href="{{ route('auth.works.show', $work->id) }}" class="text-decoration-none text-success">{{ $work->id }}</a></span></div>
                             <div class="fw-semibold small mb-1">{{ $work->projectLength() }}</div>
                             <div class="d-flex justify-content-between text-secondary pt-2">
                                 <span class="badge bg-secondary-subtle text-secondary-emphasis">${{ $work->price }}</span>
@@ -125,7 +125,7 @@
                 <div id="reviewsSection" style="display: none;">
                     @foreach($obj->myReviews as $review)
                         <div class="p-3 border rounded mb-2">
-                            <div class="fs-5 fw-bold text-success"><a href="{{ route('v1.auth.freelancers.show', $review->freelancer_id) }}" class="text-decoration-none text-success">{{ $review->freelancer->first_name }} {{ $review->freelancer->last_name }}</a></div>
+                            <div class="fs-5 fw-bold text-success"><a href="{{ route('auth.freelancers.show', $review->freelancer_id) }}" class="text-decoration-none text-success">{{ $review->freelancer->first_name }} {{ $review->freelancer->last_name }}</a></div>
                             <div class="row g-2">
                                 <div class="col-auto">
                                     @foreach(range(1, 5) as $i)

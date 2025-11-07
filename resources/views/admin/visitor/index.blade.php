@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     Visitors
 @endsection
@@ -50,8 +50,8 @@
                             {{ $obj->getDisabled() }}
                         </span>
                     </td>
-                    <td>{{ $obj->created_at->format('d-m-Y H:i') }}</td>
-                    <td>{{ $obj->updated_at->format('d-m-Y H:i') }}</td>
+                    <td>{{ $obj->created_at->format('d.m.Y H:i') }}</td>
+                    <td>{{ $obj->updated_at->format('d.m.Y H:i') }}</td>
                 </tr>
             @endforeach
             </tbody>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     Work ID: {{ $obj->id }}
 @endsection
@@ -12,12 +12,12 @@
                 <div class="row border border-top-0 border-end-0 border-1 border-secondary p-2">
                     <div class="p-2">
                         <div class="fs-4 fw-bold">Client</div>
-                        <div class="fw-semibold"><a href="{{ route('v1.auth.clients.show', $obj->client_id) }}" class="text-decoration-none text-success">{{ $obj->client?->first_name }} {{ $obj->client?->last_name }}</a></div>
+                        <div class="fw-semibold"><a href="{{ route('auth.clients.show', $obj->client_id) }}" class="text-decoration-none text-success">{{ $obj->client?->first_name }} {{ $obj->client?->last_name }}</a></div>
                     </div>
                     @if($obj->freelancer)
                         <div class="p-2">
                             <div class="fs-4 fw-bold">Freelancer</div>
-                            <div class="fw-semibold"><a href="{{ route('v1.auth.freelancers.show', $obj->freelancer_id) }}" class="text-decoration-none text-success">{{ $obj->freelancer?->first_name }} {{ $obj->freelancer?->last_name }}</a> / <span class="text-secondary small">Profile ID: {{ $obj->profile_id }}</span></div>
+                            <div class="fw-semibold"><a href="{{ route('auth.freelancers.show', $obj->freelancer_id) }}" class="text-decoration-none text-success">{{ $obj->freelancer?->first_name }} {{ $obj->freelancer?->last_name }}</a> / <span class="text-secondary small">Profile ID: {{ $obj->profile_id }}</span></div>
                         </div>
                     @else
                         <div class="p-2">
@@ -84,7 +84,14 @@
                     <div id="proposalsSection">
                         @foreach($obj->proposals as $proposal)
                             <div class="p-3 border rounded mb-2">
-                                <div class="fs-5 fw-bold"><a href="{{ route('v1.auth.freelancers.show', $proposal->freelancer_id) }}" class="text-decoration-none text-success">{{ $proposal->freelancer?->first_name }} {{ $proposal->freelancer?->last_name }}</a></div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="fs-5 fw-bold"><a href="{{ route('auth.freelancers.show', $proposal->freelancer_id) }}" class="text-decoration-none text-success">{{ $proposal->freelancer?->first_name }} {{ $proposal->freelancer?->last_name }}</a><span class="text-dark"> / Profile ID: {{ $proposal->profile_id }}</span></div>
+                                    </div>
+                                    <div class="col text-end">
+                                        <div class="fw-bold text-secondary small">{{ $proposal->created_at->format('d.m.Y H:m') }}</div>
+                                    </div>
+                                </div>
                                 <div class="text-secondary">{{ $proposal->cover_letter }}</div>
                                 <div class="badge bg-{{ $proposal->statusColor() }}-subtle text-{{ $proposal->statusColor() }}-emphasis">{{ $proposal->status() }}</div>
                             </div>

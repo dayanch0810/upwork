@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     Freelancer
 @endsection
@@ -8,18 +8,18 @@
             <div class="col-md-10 col-lg-8 col-xl-6">
 
                 <div class="h4 mb-3">
-                    <a href="{{ route('v1.auth.freelancers.index') }}" class="text-decoration-none">
+                    <a href="{{ route('auth.freelancers.index') }}" class="text-decoration-none">
                         <i class="bi-chevron-left"></i> Freelancers
                     </a> / Edit
                 </div>
 
-                <form action="{{ route('v1.auth.freelancers.update', $obj->id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('auth.freelancers.update', $obj->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     {{ method_field('PUT') }}
 
                     <div class="mb-3">
                         <label for="location" class="form-label fw-semibold">
-                            @lang('app.location') <span class="text-danger">*</span>
+                            Location <span class="text-danger">*</span>
                         </label>
                         <select class="form-select @error('location') is-invalid @enderror"
                                 id="location" name="location" required autofocus>

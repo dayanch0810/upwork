@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     Login
 @endsection
@@ -10,7 +10,7 @@
                     <div class="h3 text-center mb-3">
                         Login
                     </div>
-                    <form method="POST" action="{{ route('v1.admin.login') }}">
+                    <form method="POST" action="{{ route('admin.login') }}">
                         @csrf
 
                         <div class="mb-3">

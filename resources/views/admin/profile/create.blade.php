@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
-    @lang('app.products')
+    Products
 @endsection
 @section('content')
     <div class="container-xxl py-4">
@@ -8,12 +8,12 @@
             <div class="col-md-10 col-lg-8 col-xl-6">
 
                 <div class="h4 mb-3">
-                    <a href="{{ route('v1.auth.profiles.index') }}" class="text-decoration-none">
+                    <a href="{{ route('auth.profiles.index') }}" class="text-decoration-none">
                         <i class="bi-chevron-left"></i> Profiles
-                    </a> / @lang('app.add')
+                    </a> / Add
                 </div>
 
-                <form action="{{ route('v1.auth.profiles.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('auth.profiles.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-3">
@@ -56,7 +56,7 @@
 
 
                     <button type="submit" class="btn btn-primary w-100">
-                        @lang('app.add')
+                        Add
                     </button>
                 </form>
 

@@ -38,6 +38,6 @@ class UserAgent extends Model
     public function getUa()
     {
         $ua = array_filter([$this->device, $this->platform, $this->browser, $this->robot ? '(' . $this->robot . ')' : null]);
-        return $ua ? implode(', ', $ua) : trans('app.notFound');
+        return $ua ? implode(', ', $ua) : trans('Not Found');
     }
 }

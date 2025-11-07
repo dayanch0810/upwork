@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     Works
 @endsection
@@ -39,21 +39,21 @@
             @foreach($objs as $obj)
                 <tr>
                     <td class="text-center fw-medium text-muted">
-                        <a href="{{ route('v1.auth.works.show', $obj->id) }}" class="text-decoration-none">{{ $obj->id }}</a>
+                        <a href="{{ route('auth.works.show', $obj->id) }}" class="text-decoration-none">{{ $obj->id }}</a>
                     </td>
                     <td>
-                        <a href="{{ route('v1.auth.clients.index', ['client' => $obj->client_id]) }}" class="text-decoration-none" target="_blank">
+                        <a href="{{ route('auth.clients.index', ['client' => $obj->client_id]) }}" class="text-decoration-none" target="_blank">
                             {{ $obj->client->first_name }} {{ $obj->client->last_name }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ route('v1.auth.freelancers.index', ['freelancer' => $obj->freelancer_id]) }}" class="text-decoration-none" target="_blank">
+                        <a href="{{ route('auth.freelancers.index', ['freelancer' => $obj->freelancer_id]) }}" class="text-decoration-none" target="_blank">
                             {{ $obj->freelancer?->first_name }} {{ $obj->freelancer?->last_name }}
                         </a>
                     </td>
                     <td class="text-center">
                         @if($obj->profile_id)
-                            <a href="{{ route('v1.auth.profiles.index', ['profile' => $obj->profile_id]) }}" class="text-decoration-none" target="_blank">
+                            <a href="{{ route('auth.profiles.index', ['profile' => $obj->profile_id]) }}" class="text-decoration-none" target="_blank">
                                 {{ $obj->profile?->id }}
                             </a>
                         @endif
@@ -84,11 +84,11 @@
                             {{ $obj->hoursPerWeek() }}
                         </span>
                     </td>
-                    <td><a href="{{ route('v1.auth.skills.index', ['workSkills' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->work_skills_count }}</a></td>
-                    <td>{{ $obj->created_at->format('d-m-Y H:i') }}</td>
+                    <td><a href="{{ route('auth.skills.index', ['workSkills' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->work_skills_count }}</a></td>
+                    <td>{{ $obj->created_at->format('d.m.Y H:i') }}</td>
                     <td class="text-center">
                         <div class="mb-1">
-                            <a href="{{ route('v1.auth.works.edit', $obj->id) }}" class="btn btn-success btn-sm">
+                            <a href="{{ route('auth.works.edit', $obj->id) }}" class="btn btn-success btn-sm">
                                 <i class="bi-pencil-fill"></i>
                             </a>
                         </div>
@@ -99,14 +99,14 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <div class="modal-title fs-5" id="deleteModalLabel">@lang('app.delete')</div>
+                                        <div class="modal-title fs-5" id="deleteModalLabel">Delete</div>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         {{ $obj->id }}
                                     </div>
                                     <div class="modal-footer">
-                                        <form method="POST" action="{{ route('v1.auth.works.destroy', $obj->id) }}">
+                                        <form method="POST" action="{{ route('auth.works.destroy', $obj->id) }}">
                                             @csrf
                                             {{ method_field('DELETE') }}
 

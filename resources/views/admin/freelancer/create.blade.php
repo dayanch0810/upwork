@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     Freelancer
 @endsection
@@ -8,17 +8,17 @@
             <div class="col-md-10 col-lg-8 col-xl-6">
 
                 <div class="h4 mb-3">
-                    <a href="{{ route('v1.auth.freelancers.index') }}" class="text-decoration-none">
+                    <a href="{{ route('auth.freelancers.index') }}" class="text-decoration-none">
                         <i class="bi-chevron-left"></i> Freelancers
-                    </a> / @lang('app.add')
+                    </a> / Add
                 </div>
 
-                <form action="{{ route('v1.auth.freelancers.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('auth.freelancers.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-3">
                         <label for="category" class="form-label fw-semibold">
-                            @lang('app.location') <span class="text-danger">*</span>
+                            Location <span class="text-danger">*</span>
                         </label>
                         <select class="form-select @error('location') is-invalid @enderror" id="location" name="location" required autofocus>
                             @foreach($locations as $location)
@@ -159,7 +159,7 @@
 
 
                     <button type="submit" class="btn btn-primary w-100">
-                        @lang('app.add')
+                        Add
                     </button>
                 </form>
 

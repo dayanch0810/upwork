@@ -64,7 +64,7 @@ class ProfileController extends Controller
             'body' => $request->body,
         ]);
 
-        return to_route('v1.auth.profiles.index')
+        return to_route('auth.profiles.index')
             ->with([
                 'success' => 'Profile added',
             ]);
@@ -103,7 +103,7 @@ class ProfileController extends Controller
         $obj->body = $request->body;
         $obj->update();
 
-        return to_route('v1.auth.profiles.index')
+        return to_route('auth.profiles.index')
             ->with([
                 'success' => 'Update successfully',
             ]);
@@ -114,7 +114,7 @@ class ProfileController extends Controller
         $obj = Profile::findOrFail($id);
         $obj->delete();
 
-        return to_route('v1.auth.profiles.index')
+        return to_route('auth.profiles.index')
             ->with([
                 'success' => 'Profile deleted',
             ]);

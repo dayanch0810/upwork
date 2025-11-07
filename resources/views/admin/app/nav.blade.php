@@ -1,7 +1,11 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-black shadow-sm px-4 sticky-top" aria-label="Navbar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ route('v1.auth.dashboard') }}">
+        <a class="navbar-brand" href="{{ route('auth.dashboard') }}">
             <div class="fw-bold fs-4">Upwork</div>
+        </a>
+
+        <a class="text-decoration-none" href="{{ route('auth.works.index') }}">
+            <div class="fw-bold fs-5 px-2">Works</div>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -10,42 +14,6 @@
         <div class="collapse navbar-collapse" id="navbar">
             @auth
                 <ul class="navbar-nav me-auto">
-
-                    {{--SECURITY--}}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Security
-                        </a>
-
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.ipAddress.index') }}">
-                                    Ip Address
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.userAgents.index') }}">
-                                    User Agents
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.authAttempts.index') }}">
-                                    Auth Attempts
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.visitors.index') }}">
-                                    Visitors
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.verifications.index') }}">
-                                    Verifications
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
 
                     {{--USERS--}}
                     <li class="nav-item dropdown">
@@ -56,44 +24,23 @@
 
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.admins.index') }}">
+                                <a class="dropdown-item" href="{{ route('auth.admins.index') }}">
                                     Admins
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.clients.index') }}">
+                                <a class="dropdown-item" href="{{ route('auth.clients.index') }}">
                                     Clients
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.freelancers.index') }}">
+                                <a class="dropdown-item" href="{{ route('auth.freelancers.index') }}">
                                     Freelancers
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.profiles.index') }}">
+                                <a class="dropdown-item" href="{{ route('auth.profiles.index') }}">
                                     Profiles
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    {{--WORKS--}}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Works
-                        </a>
-
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.works.index') }}">
-                                    Works
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.proposals.index') }}">
-                                    Proposals
                                 </a>
                             </li>
                         </ul>
@@ -108,18 +55,54 @@
 
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.skills.index') }}">
+                                <a class="dropdown-item" href="{{ route('auth.skills.index') }}">
                                     Skills
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.locations.index') }}">
+                                <a class="dropdown-item" href="{{ route('auth.locations.index') }}">
                                     Locations
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('v1.auth.reviews.index') }}">
+                                <a class="dropdown-item" href="{{ route('auth.reviews.index') }}">
                                     Reviews
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    {{--SECURITY--}}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Security
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('auth.ipAddress.index') }}">
+                                    Ip Address
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('auth.userAgents.index') }}">
+                                    User Agents
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('auth.authAttempts.index') }}">
+                                    Auth Attempts
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('auth.visitors.index') }}">
+                                    Visitors
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('auth.verifications.index') }}">
+                                    Verifications
                                 </a>
                             </li>
                         </ul>
@@ -136,7 +119,7 @@
                     </li>
                 </ul>
 
-                <form method="POST" action="{{ route('v1.admin.logout') }}" id="logout" class="d-none">
+                <form method="POST" action="{{ route('admin.logout') }}" id="logout" class="d-none">
                     @csrf
                 </form>
         </div>

@@ -104,7 +104,7 @@ class FreelancerController extends Controller
             $obj->update();
         }
 
-        return to_route('v1.auth.freelancers.index')
+        return to_route('auth.freelancers.index')
             ->with([
                 'success' => 'Freelancer added',
             ]);
@@ -169,7 +169,7 @@ class FreelancerController extends Controller
 
         $obj->save();
 
-        return to_route('v1.auth.freelancers.index')
+        return to_route('auth.freelancers.index')
             ->with([
                 'success' => 'Update successfully',
             ]);
@@ -180,7 +180,7 @@ class FreelancerController extends Controller
         $obj = Freelancer::findOrFail($id);
         $obj->delete();
 
-        return to_route('v1.auth.freelancers.index')
+        return to_route('auth.freelancers.index')
             ->with([
                 'success' => 'Freelancer deleted',
             ]);

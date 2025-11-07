@@ -38,6 +38,6 @@ class IpAddress extends Model
     public function getIp()
     {
         $ip = array_filter([$this->country_code, $this->country_name, $this->city_name]);
-        return $ip ? implode(', ', $ip) : trans('app.notFound');
+        return $ip ? implode(', ', $ip) : trans('Not Found');
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('title')
     Reviews
 @endsection
@@ -35,12 +35,12 @@
                 <tr>
                     <td>{{ $obj->id }}</td>
                     <td>
-                        <a href="{{ route('v1.auth.clients.index', ['client' => $obj->client_id]) }}" class="text-decoration-none" target="_blank">
+                        <a href="{{ route('auth.clients.index', ['client' => $obj->client_id]) }}" class="text-decoration-none" target="_blank">
                             {{ $obj->client->first_name }} {{ $obj->client->last_name }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ route('v1.auth.freelancers.index', ['freelancer' => $obj->freelancer_id]) }}" class="text-decoration-none" target="_blank">
+                        <a href="{{ route('auth.freelancers.index', ['freelancer' => $obj->freelancer_id]) }}" class="text-decoration-none" target="_blank">
                             {{ $obj->freelancer?->first_name }} {{ $obj->freelancer?->last_name }}
                         </a>
                     </td>
@@ -51,8 +51,8 @@
                     </td>
                     <td><i class="bi-star-fill text-warning"> </i>{{ $obj->rating }}</td>
                     <td>{{ $obj->comment }}</td>
-                    <td>{{ $obj->created_at->format('d-m-Y H:i') }}</td>
-                    <td>{{ $obj->updated_at->format('d-m-Y H:i') }}</td>
+                    <td>{{ $obj->created_at->format('d.m.Y H:i') }}</td>
+                    <td>{{ $obj->updated_at->format('d.m.Y H:i') }}</td>
                 </tr>
             @endforeach
             </tbody>
