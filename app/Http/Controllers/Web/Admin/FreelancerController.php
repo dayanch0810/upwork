@@ -39,7 +39,10 @@ class FreelancerController extends Controller
     public function show($id)
     {
         $obj = Freelancer::where('id', $id)
-            ->with('location', 'works.client', 'myReviews.client', 'clientReviews')
+            ->with(['location', 'proposals', 'works.client', 'myReviews.client', 'clientReviews',
+                'profiles' => function ($query) {
+                    $query->withCount('proposals');
+                }])
             ->withCount('profiles', 'freelancerSkills', 'myReviews', 'works', 'proposals')
             ->firstOrFail();
 

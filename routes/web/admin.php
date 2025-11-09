@@ -71,11 +71,9 @@ Route::middleware('auth')
             ->prefix('profiles')
             ->name('profiles.')
             ->group(function () {
-                Route::get('', 'index')->name('index');
-                Route::get('{id}', 'show')->name('show')->where(['id' => '[0-9]+']);
-                Route::get('create', 'create')->name('create');
+                Route::get('create/{freelancer_id}', 'create')->name('create');
                 Route::post('', 'store')->name('store');
-                Route::get('{id}/edit', 'edit')->name('edit')->where(['id' => '[0-9]+']);
+                Route::get('{id}/edit/{freelancer_id}', 'edit')->name('edit')->where(['id' => '[0-9]+']);
                 Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
                 Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
             });

@@ -38,11 +38,6 @@
                                     Freelancers
                                 </a>
                             </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('auth.profiles.index') }}">
-                                    Profiles
-                                </a>
-                            </li>
                         </ul>
                     </li>
 

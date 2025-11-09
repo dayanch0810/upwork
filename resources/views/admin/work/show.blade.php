@@ -89,7 +89,7 @@
                                         <div class="fs-5 fw-bold"><a href="{{ route('auth.freelancers.show', $proposal->freelancer_id) }}" class="text-decoration-none text-success">{{ $proposal->freelancer?->first_name }} {{ $proposal->freelancer?->last_name }}</a><span class="text-dark"> / Profile ID: {{ $proposal->profile_id }}</span></div>
                                     </div>
                                     <div class="col text-end">
-                                        <div class="fw-bold text-secondary small">{{ $proposal->created_at->format('d.m.Y H:m') }}</div>
+                                        <div class="fw-bold text-secondary small">{{ $proposal->created_at->format('d.m.Y H:i') }}</div>
                                     </div>
                                 </div>
                                 <div class="text-secondary">{{ $proposal->cover_letter }}</div>

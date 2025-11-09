@@ -9,10 +9,6 @@
         <div class="col h3 text-start">
             Profiles
         </div>
-
-        <div class="col text-end">
-            <a href="{{ route('auth.profiles.create') }}" class="btn btn-dark">Add <i class="bi-plus"></i></a>
-        </div>
     </div>
 
     <div class="table-responsive">

@@ -11,35 +11,13 @@ use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
-    public function index(Request $request)
+    public function create($freelancer_id)
     {
-        $request->validate([
-            'freelancer' => ['nullable', 'integer', 'min:1'],
-            'profile' => ['nullable', 'integer', 'min:1'],
-        ]);
-        $f_freelancer = $request->has('freelancer') ? $request->freelancer : null;
-        $f_profile = $request->has('profile') ? $request->profile : null;
-
-        $objs = Profile::when(isset($f_freelancer), fn($query) => $query->where('freelancer_id', $f_freelancer))
-            ->when(isset($f_profile), fn($query) => $query->where('id', $f_profile))
-            ->with('freelancer')
-            ->withCount('works', 'proposals')
-            ->orderBy('id', 'desc')
-            ->paginate();
-
-        return view('admin.profile.index')
-            ->with([
-                'objs' => $objs,
-            ]);
-    }
-
-    public function create()
-    {
-        $freelancers = Freelancer::get();
+        $freelancer = Freelancer::findOrFail($freelancer_id);
 
         return view('admin.profile.create')
             ->with([
-                'freelancers' => $freelancers
+                'freelancer' => $freelancer
             ]);
     }
 
@@ -59,26 +37,26 @@ class ProfileController extends Controller
         $freelancer = Freelancer::findOrFail($request->freelancer);
 
         Profile::create([
-            'freelancer_id' => $freelancer->id,
+            'freelancer_id' =>  $freelancer->id,
             'title' => $request->title,
             'body' => $request->body,
         ]);
 
-        return to_route('auth.profiles.index')
+        return to_route('auth.freelancers.show', $freelancer->id)
             ->with([
                 'success' => 'Profile added',
             ]);
     }
 
-    public function edit($id)
+    public function edit($id, $freelancer_id)
     {
         $obj = Profile::findOrFail($id);
-        $freelancers = Freelancer::orderBy('id')->get();
+        $freelancer = Freelancer::findOrFail($freelancer_id);
 
         return view('admin.profile.edit')
             ->with([
                 'obj' => $obj,
-                'freelancers' => $freelancers,
+                'freelancer' => $freelancer,
             ]);
     }
 
@@ -98,12 +76,12 @@ class ProfileController extends Controller
         $freelancer = Freelancer::findOrFail($request->freelancer);
 
         $obj = Profile::findOrFail($id);
-        $obj->freelancer_id = $freelancer->id ?? null;
+        $obj->freelancer_id = $freelancer->id;
         $obj->title = $request->title;
         $obj->body = $request->body;
         $obj->update();
 
-        return to_route('auth.profiles.index')
+        return to_route('auth.freelancers.show', $freelancer->id)
             ->with([
                 'success' => 'Update successfully',
             ]);
@@ -114,7 +92,7 @@ class ProfileController extends Controller
         $obj = Profile::findOrFail($id);
         $obj->delete();
 
-        return to_route('auth.profiles.index')
+        return redirect()->back()
             ->with([
                 'success' => 'Profile deleted',
             ]);

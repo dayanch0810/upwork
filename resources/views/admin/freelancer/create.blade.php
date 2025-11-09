@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-6">
 
-                <div class="h4 mb-3">
+                <div class="h3 mb-3">
                     <a href="{{ route('auth.freelancers.index') }}" class="text-decoration-none">
                         <i class="bi-chevron-left"></i> Freelancers
                     </a> / Add

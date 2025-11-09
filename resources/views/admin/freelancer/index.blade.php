@@ -11,7 +11,7 @@
         </div>
 
         <div class="col text-end">
-            <a href="{{ route('auth.freelancers.create') }}" class="btn btn-dark">Add <i class="bi-plus"></i></a>
+            <a href="{{ route('auth.freelancers.create') }}" class="btn btn-primary"><i class="bi-plus"></i></a>
         </div>
     </div>
 

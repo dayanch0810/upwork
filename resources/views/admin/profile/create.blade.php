@@ -7,30 +7,16 @@
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-6">
 
-                <div class="h4 mb-3">
-                    <a href="{{ route('auth.profiles.index') }}" class="text-decoration-none">
-                        <i class="bi-chevron-left"></i> Profiles
+                <div class="h3 mb-4">
+                    <a href="{{ route('auth.freelancers.show', $freelancer->id) }}" class="text-decoration-none">
+                        <i class="bi-chevron-left"></i> {{ $freelancer->first_name }} {{ $freelancer->last_name }}
                     </a> / Add
                 </div>
 
                 <form action="{{ route('auth.profiles.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
-                    <div class="mb-3">
-                        <label for="category" class="form-label fw-semibold">
-                            Freelancer <span class="text-danger">*</span>
-                        </label>
-                        <select class="form-select @error('freelancer') is-invalid @enderror" id="freelancer" name="freelancer" required autofocus>
-                            @foreach($freelancers as $freelancer)
-                                <option value="{{ $freelancer->id }}">
-                                    {{ $freelancer->first_name }} {{ $freelancer->last_name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('freelancer')
-                        <div class="alert alert-danger mt-2">{{ $message }}</div>
-                        @enderror
-                    </div>
+                    <input type="hidden" name="freelancer" value="{{ $freelancer->id }}">
 
                     <div class="mb-3">
                         <label for="title" class="form-label fw-semibold">
@@ -53,7 +39,6 @@
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                         @enderror
                     </div>
-
 
                     <button type="submit" class="btn btn-primary w-100">
                         Add
