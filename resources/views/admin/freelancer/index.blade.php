@@ -28,7 +28,6 @@
                 <th>Verified</th>
                 <th>Total Jobs</th>
                 <th>Total Earnings</th>
-                <th>Profiles</th>
                 <th>Skills</th>
                 <th>Reviews</th>
                 <th>Works</th>
@@ -58,7 +57,6 @@
                     </td>
                     <td><i class="bi-briefcase"></i> {{ $obj->total_jobs }}</td>
                     <td><i class="bi-currency-dollar"></i>{{ $obj->total_earnings }}</td>
-                    <td><a href="{{ route('auth.profiles.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->profiles_count }}</a></td>
                     <td><a href="{{ route('auth.skills.index', ['freelancerSkills' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->freelancer_skills_count }}</a></td>
                     <td><a href="{{ route('auth.reviews.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->my_reviews_count }}</a></td>
                     <td><a href="{{ route('auth.works.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
@@ -69,10 +67,10 @@
                                 <i class="bi-pencil-fill"></i>
                             </a>
                         </div>
-                        <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $obj->id }}">
                             <i class="bi-trash-fill"></i>
                         </button>
-                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="deleteModal{{ $obj->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">

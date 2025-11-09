@@ -8,8 +8,8 @@
             <div class="col-md-10 col-lg-8 col-xl-6">
 
                 <div class="h3 mb-3">
-                    <a href="{{ route('auth.profiles.index') }}" class="text-decoration-none">
-                        <i class="bi-chevron-left"></i> Profiles
+                    <a href="{{ route('auth.freelancers.show', $freelancer->id) }}" class="text-decoration-none">
+                        <i class="bi-chevron-left"></i> {{ $freelancer->first_name }} {{ $freelancer->last_name }}
                     </a> / Edit
                 </div>
 

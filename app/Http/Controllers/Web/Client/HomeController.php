@@ -14,13 +14,13 @@ class HomeController extends Controller
 //        Auth::loginUsingId(1);
 //        Auth::logout();
 //
-        $username = 'admin';
-        $password = 'upwork2026';
-
-        if (Auth::attempt(['username' => $username, 'password' => $password])) {
-            $request->session()->regenerate();
-            return to_route('admin.dashboard');
-        }
+//        $username = 'admin';
+//        $password = 'upwork2026';
+//
+//        if (Auth::attempt(['username' => $username, 'password' => $password])) {
+//            $request->session()->regenerate();
+//            return to_route('admin.dashboard');
+//        }
 
         $request->validate([
             'clientId' => ['nullable', 'integer', 'min:1'],

@@ -41,7 +41,11 @@
                         <div class="small text-secondary">{{ $obj->userAgent->user_agent }}</div>
                     </td>
                     <td>{{ $obj->username }}</td>
-                    <td>{{ $obj->event }}</td>
+                    <td>
+                        <span class="badge bg-{{ $obj->eventColor() }}-subtle text-{{ $obj->eventColor() }}-emphasis">
+                            {{ $obj->event() }}
+                        </span>
+                    </td>
                     <td>{{ $obj->created_at }}</td>
                 </tr>
             @endforeach

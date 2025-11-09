@@ -34,7 +34,7 @@ class LoginListener
             'ip_address_id' => $ipAddress->id,
             'user_agent_id' => $userAgent->id,
             'username' => $event->user['username'],
-            'event' => 'Login',
+            'event' => 0,
         ]);
     }
 }

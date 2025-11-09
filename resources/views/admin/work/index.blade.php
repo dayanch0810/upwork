@@ -51,11 +51,9 @@
                             {{ $obj->freelancer?->first_name }} {{ $obj->freelancer?->last_name }}
                         </a>
                     </td>
-                    <td class="text-center">
+                    <td class="text-center text-primary">
                         @if($obj->profile_id)
-                            <a href="{{ route('auth.profiles.index', ['profile' => $obj->profile_id]) }}" class="text-decoration-none" target="_blank">
-                                {{ $obj->profile?->id }}
-                            </a>
+                            {{ $obj->profile?->id }}
                         @endif
                     </td>
                     <td><i class="bi-currency-dollar"></i>{{ $obj->price }}</td>
@@ -92,10 +90,10 @@
                                 <i class="bi-pencil-fill"></i>
                             </a>
                         </div>
-                        <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $obj->id }}">
                             <i class="bi-trash-fill"></i>
                         </button>
-                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="deleteModal{{ $obj->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">

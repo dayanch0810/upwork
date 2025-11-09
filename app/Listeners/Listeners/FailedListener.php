@@ -36,7 +36,7 @@ class FailedListener
             'ip_address_id' => $ipAddress->id,
             'user_agent_id' => $userAgent->id,
             'username' => $event->credentials['username'] . ' ' . $event->credentials['password'],
-            'event' => 'Failed',
+            'event' => 1,
         ]);
     }
 }

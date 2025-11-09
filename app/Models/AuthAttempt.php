@@ -30,4 +30,16 @@ class AuthAttempt extends Model
     {
         return $this->belongsTo(UserAgent::class);
     }
+
+    //
+
+    public function event()
+        {
+            return ['Login', 'Failed'][$this->event];
+        }
+
+        public function eventColor()
+        {
+            return ['success', 'danger'][$this->event];
+        }
 }

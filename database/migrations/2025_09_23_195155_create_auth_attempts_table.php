@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->foreignId('ip_address_id')->index()->constrained()->cascadeOnDelete();
             $table->foreignId('user_agent_id')->index()->constrained()->cascadeOnDelete();
             $table->string('username');
-            $table->string('event');
+            $table->unsignedTinyInteger('event')->default(0);
             $table->timestamp('created_at')->nullable();
         });
     }

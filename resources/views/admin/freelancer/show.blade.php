@@ -171,10 +171,10 @@
                                             <i class="bi-pencil-fill"></i>
                                         </a>
                                     </div>
-                                    <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                    <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $profile->id }}">
                                         <i class="bi-trash-fill"></i>
                                     </button>
-                                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="deleteModal{{ $profile->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -182,10 +182,10 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    {{ $obj->id }}
+                                                    {{ $profile->id }}
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form method="POST" action="{{ route('auth.profiles.destroy', $obj->id) }}">
+                                                    <form method="POST" action="{{ route('auth.profiles.destroy', $profile->id) }}">
                                                         @csrf
                                                         {{ method_field('DELETE') }}
 
