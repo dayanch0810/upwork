@@ -59,8 +59,8 @@
                 <div class="row border border-end-0 border-bottom-0 border-1 border-secondary p-4">
                     <div class="py-2">
                         <div class="fs-5 fw-bold">Verifications</div>
-                        <div class="fw-semibold">Phone number verified:
-                            @if($obj->phone_number_verified)
+                        <div class="fw-semibold">Email verified:
+                            @if($obj->email_verified)
                                 <i class="bi-check-circle-fill text-success"></i>
                             @else
                                 <i class="bi-x-circle-fill text-danger"></i>

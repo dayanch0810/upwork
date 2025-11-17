@@ -10,6 +10,7 @@ use GeoIp2\Database\Reader;
 use GeoIp2\Exception\AddressNotFoundException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Jenssegers\Agent\Agent;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -87,6 +88,32 @@ class WebMiddleware
             $obj->robot = $robot;
             $obj->api = 0;
             $obj->save();
+        }
+
+        if (auth('client_web')->check()) {
+            $client = auth('client_web')->user();
+
+            $cacheKey = "client_last_seen_{$client->id}";
+
+            if (!Cache::has($cacheKey)) {
+                $client->last_seen = now();
+                $client->update();
+
+                Cache::put($cacheKey, true, now()->addMinutes(5));
+            }
+        }
+
+        if (auth('freelancer_web')->check()) {
+            $freelancer = auth('freelancer_web')->user();
+
+            $cacheKey = "freelancer_last_seen_{$freelancer->id}";
+
+            if (!Cache::has($cacheKey)) {
+                $freelancer->last_seen = now();
+                $freelancer->update();
+
+                Cache::put($cacheKey, true, now()->addMinutes(5));
+            }
         }
 
         return $next($request);

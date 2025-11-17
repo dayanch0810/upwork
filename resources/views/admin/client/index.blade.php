@@ -10,8 +10,8 @@
             Clients
         </div>
 
-        <div class="col-auto">
-            @include('admin.app.alert')
+        <div class="col text-end">
+            <a href="{{ route('auth.clients.create') }}" class="btn btn-primary"><i class="bi-plus"></i></a>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
                 <th>Avatar</th>
                 <th>Username</th>
                 <th>Rating</th>
-                <th>Phone Number Verified</th>
+                <th>Email Verified</th>
                 <th>Payment Method Verified</th>
                 <th>Total Jobs</th>
                 <th>Total Spent</th>
@@ -48,17 +48,17 @@
                     <td>{{ $obj->username }}</td>
                     <td><i class="bi-star-fill text-warning"> </i>{{ $obj->rating }}</td>
                     <td>
-                        @if($obj->phone_number_verified)
+                        @if($obj->email_verified)
                             <div class="badge bg-success-subtle text-success-emphasis">Verified</div>
                         @else
-                            <div class="badge bg-warning-subtle text-warning-emphasis">Not Verified</div>
+                            <div class="badge bg-danger-subtle text-danger-emphasis">Not Verified</div>
                         @endif
                     </td>
                     <td>
                         @if($obj->payment_method_verified)
                             <div class="badge bg-success-subtle text-success-emphasis">Verified</div>
                         @else
-                            <div class="badge bg-warning-subtle text-warning-emphasis">Not Verified</div>
+                            <div class="badge bg-danger-subtle text-danger-emphasis">Not Verified</div>
                         @endif
                     </td>
                     <td><i class="bi-briefcase"></i> {{ $obj->total_jobs }}</td>
@@ -70,6 +70,11 @@
             @endforeach
             </tbody>
         </table>
+    </div>
+    <div class="position-fixed bottom-0 end-0 p-2" style="z-index: 9999;">
+        <div class="col">
+            @include('admin.app.alert')
+        </div>
     </div>
     <div>{{ $objs->links() }}</div>
 @endsection

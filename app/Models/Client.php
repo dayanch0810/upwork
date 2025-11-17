@@ -68,4 +68,16 @@ class Client extends Authenticatable
         return $this->hasMany(Review::class)
             ->where('from', 'freelancer');
     }
+
+    //
+
+    public static function emailVerifiedList()
+    {
+        return ['Not verified', 'Verified'];
+    }
+
+    public static function paymentMethodVerifiedList()
+    {
+        return ['Not verified', 'Verified'];
+    }
 }

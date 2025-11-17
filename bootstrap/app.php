@@ -18,6 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->api(append: [
             \App\Http\Middleware\ApiMiddleware::class,
         ]);
+        $middleware->alias([
+            'guest.redirect' => \App\Http\Middleware\RedirectMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

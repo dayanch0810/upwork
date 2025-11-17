@@ -52,7 +52,7 @@
                         @if($obj->verified)
                             <div class="badge bg-success-subtle text-success-emphasis">Verified</div>
                         @else
-                            <div class="badge bg-warning-subtle text-warning-emphasis">Not Verified</div>
+                            <div class="badge bg-danger-subtle text-danger-emphasis">Not Verified</div>
                         @endif
                     </td>
                     <td><i class="bi-briefcase"></i> {{ $obj->total_jobs }}</td>

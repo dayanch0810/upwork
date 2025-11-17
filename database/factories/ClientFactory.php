@@ -34,7 +34,7 @@ class ClientFactory extends Factory
             'username' => fake()->unique()->safeEmail(),
             'password' => bcrypt('password'),
             'rating' => fake()->randomFloat(1, 0, 5),
-            'phone_number_verified' => fake()->boolean(),
+            'email_verified' => fake()->boolean(),
             'payment_method_verified' => fake()->boolean(),
             'total_jobs' => fake()->numberBetween(0, 200),
             'total_spent' => fake()->numberBetween(0, 100000),

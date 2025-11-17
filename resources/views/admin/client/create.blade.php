@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-    Freelancer
+    Client
 @endsection
 @section('content')
     <div class="container-xxl py-4">
@@ -8,12 +8,12 @@
             <div class="col-md-10 col-lg-8 col-xl-6">
 
                 <div class="h3 mb-3">
-                    <a href="{{ route('auth.freelancers.index') }}" class="text-decoration-none">
-                        <i class="bi-chevron-left"></i> Freelancers
+                    <a href="{{ route('auth.clients.index') }}" class="text-decoration-none">
+                        <i class="bi-chevron-left"></i> Clients
                     </a> / Add
                 </div>
 
-                <form action="{{ route('auth.freelancers.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('auth.clients.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-3">
@@ -94,12 +94,46 @@
                         </div>
 
                         <div class="col">
-                            <div class="mb-3">
-                                <label for="password_confirmation" class="form-label fw-semibold">
-                                    Confirm Password <span class="text-danger">*</span>
-                                </label>
-                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
-                            </div>
+                            <label for="password_confirmation" class="form-label fw-semibold">
+                                Confirm Password <span class="text-danger">*</span>
+                            </label>
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="email_verified" class="form-label fw-semibold">
+                                Email Verified <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select @error('email_verified') is-invalid @enderror"
+                                    id="email_verified" name="email_verified" required>
+                                @foreach(\App\Models\Client::emailVerifiedList() as $key => $label)
+                                    <option value="{{ $key }}" {{ old('email_verified', $obj->email_verified ?? 0) == $key ? 'selected' : '' }}>
+                                        {{ $label }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('email_verified')
+                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="col">
+                            <label for="payment_method_verified" class="form-label fw-semibold">
+                                Payment Method Verified <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select @error('payment_method_verified') is-invalid @enderror"
+                                    id="payment_method_verified" name="payment_method_verified" required>
+                                @foreach(\App\Models\Client::paymentMethodVerifiedList() as $key => $label)
+                                    <option value="{{ $key }}" {{ old('verified', $obj->payment_method_verified ?? 0) == $key ? 'selected' : '' }}>
+                                        {{ $label }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('payment_method_verified')
+                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -116,25 +150,6 @@
                         </div>
 
                         <div class="col">
-                            <label for="verified" class="form-label fw-semibold">
-                                Verified <span class="text-danger">*</span>
-                            </label>
-
-                            <select class="form-select @error('verified') is-invalid @enderror"
-                                    id="verified" name="verified" required>
-                                @foreach(\App\Models\Freelancer::verifiedList() as $key => $label)
-                                    <option value="{{ $key }}" {{ old('verified', $obj->verified ?? 0) == $key ? 'selected' : '' }}>
-                                        {{ $label }}
-                                    </option>
-                                @endforeach
-                            </select>
-
-                            @error('verified')
-                            <div class="alert alert-danger mt-2">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="col">
                             <label for="total_jobs" class="form-label fw-semibold">
                                 Total Jobs <span class="text-danger">*</span>
                             </label>
@@ -146,12 +161,12 @@
                         </div>
 
                         <div class="col">
-                            <label for="total_earnings" class="form-label fw-semibold">
-                                Total Earnings <span class="text-danger">*</span>
+                            <label for="total_spent" class="form-label fw-semibold">
+                                Total Spent <span class="text-danger">*</span>
                             </label>
-                            <input type="number" min="0" class="form-control @error('total_earnings') is-invalid @enderror"
-                                   id="total_earnings" name="total_earnings" value="{{ old('total_earnings', 0) }}">
-                            @error('total_earnings')
+                            <input type="number" min="0" class="form-control @error('total_spent') is-invalid @enderror"
+                                   id="total_spent" name="total_spent" value="{{ old('total_spent', 0) }}">
+                            @error('total_spent')
                             <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
                         </div>

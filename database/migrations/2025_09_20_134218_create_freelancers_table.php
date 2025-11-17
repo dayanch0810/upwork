@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->boolean('verified')->default(0);
             $table->unsignedInteger('total_jobs')->default(0);
             $table->unsignedInteger('total_earnings')->default(0);
+            $table->dateTime('last_seen')->useCurrent()->nullable();
             $table->json('previous_clients')->nullable();
             $table->rememberToken();
             $table->timestamps();

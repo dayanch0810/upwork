@@ -22,7 +22,8 @@ class FreelancerController extends Controller
         $f_freelancer = $request->has('freelancer') ? $request->freelancer : null;
         $f_freelancerSkills = $request->has('freelancerSkills') ? $request->freelancerSkills : null;
 
-        $objs = Freelancer::when(isset($f_location), fn($query) => $query->where('location_id', $f_location))
+        $objs = Freelancer::whereNotNull('last_seen')
+            ->when(isset($f_location), fn($query) => $query->where('location_id', $f_location))
             ->when(isset($f_freelancer), fn($query) => $query->where('id', $f_freelancer))
             ->when(isset($f_freelancerSkills), fn($query) => $query->whereHas('freelancerSkills', fn($query) => $query->where('skills.id', $f_freelancerSkills)))
             ->with('location')
@@ -39,11 +40,11 @@ class FreelancerController extends Controller
     public function show($id)
     {
         $obj = Freelancer::where('id', $id)
-            ->with(['location', 'proposals', 'works.client', 'myReviews.client', 'clientReviews',
+            ->with(['location', 'proposals', 'freelancerSkills', 'works.client', 'myReviews.client', 'clientReviews.client',
                 'profiles' => function ($query) {
                     $query->withCount('proposals');
                 }])
-            ->withCount('profiles', 'freelancerSkills', 'myReviews', 'works', 'proposals')
+            ->withCount('profiles', 'myReviews', 'clientReviews', 'works', 'proposals')
             ->firstOrFail();
 
         return view('admin.freelancer.show')
@@ -181,6 +182,7 @@ class FreelancerController extends Controller
     public function destroy($id)
     {
         $obj = Freelancer::findOrFail($id);
+        $obj->username = $obj->username . '_deleted_' . time();
         $obj->delete();
 
         return to_route('auth.freelancers.index')

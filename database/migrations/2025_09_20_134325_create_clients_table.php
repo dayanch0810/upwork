@@ -20,10 +20,11 @@ return new class extends Migration {
             $table->string('username')->unique();
             $table->string('password');
             $table->double('rating')->default(0);
-            $table->boolean('phone_number_verified')->default(0);
+            $table->boolean('email_verified')->default(0);
             $table->boolean('payment_method_verified')->default(0);
             $table->unsignedInteger('total_jobs')->default(0);
             $table->unsignedInteger('total_spent')->default(0);
+            $table->dateTime('last_seen')->useCurrent()->nullable();
             $table->json('previous_freelancers')->nullable();
             $table->rememberToken();
             $table->timestamps();
