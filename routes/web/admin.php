@@ -9,7 +9,6 @@ use App\Http\Controllers\Web\Admin\FreelancerController;
 use App\Http\Controllers\Web\Admin\IpAddressController;
 use App\Http\Controllers\Web\Admin\LocationController;
 use App\Http\Controllers\Web\Admin\ProfileController;
-use App\Http\Controllers\Web\Admin\ProposalController;
 use App\Http\Controllers\Web\Admin\ReviewController;
 use App\Http\Controllers\Web\Admin\SkillController;
 use App\Http\Controllers\Web\Admin\UserAgentController;
@@ -52,6 +51,8 @@ Route::middleware('auth')
                 Route::get('{id}/edit', 'edit')->name('edit')->where(['id' => '[0-9]+']);
                 Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
                 Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
+                Route::post('{id}/restore', 'restore')->name('restore')->where(['id' => '[0-9]+']);
+                Route::delete('{id}/force', 'forceDelete')->name('forceDelete')->where(['id' => '[0-9]+']);
             });
 
         Route::controller(FreelancerController::class)
@@ -65,6 +66,8 @@ Route::middleware('auth')
                 Route::get('{id}/edit', 'edit')->name('edit')->where(['id' => '[0-9]+']);
                 Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
                 Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
+                Route::post('{id}/restore', 'restore')->name('restore')->where(['id' => '[0-9]+']);
+                Route::delete('{id}/force', 'forceDelete')->name('forceDelete')->where(['id' => '[0-9]+']);
             });
 
         Route::controller(ProfileController::class)
@@ -76,6 +79,8 @@ Route::middleware('auth')
                 Route::get('{id}/edit/{freelancer_id}', 'edit')->name('edit')->where(['id' => '[0-9]+']);
                 Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
                 Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
+                Route::post('{id}/restore', 'restore')->name('restore')->where(['id' => '[0-9]+']);
+                Route::delete('{id}/force', 'forceDelete')->name('forceDelete')->where(['id' => '[0-9]+']);
             });
 
         Route::controller(IpAddressController::class)
@@ -132,6 +137,8 @@ Route::middleware('auth')
             ->name('reviews.')
             ->group(function () {
                 Route::get('', 'index')->name('index');
+                Route::post('{id}/restore', 'restore')->name('restore')->where(['id' => '[0-9]+']);
+                Route::delete('{id}/force', 'forceDelete')->name('forceDelete')->where(['id' => '[0-9]+']);
             });
 
         Route::controller(WorkController::class)
@@ -143,5 +150,7 @@ Route::middleware('auth')
                 Route::get('{id}/edit', 'edit')->name('edit')->where(['id' => '[0-9]+']);
                 Route::put('{id}', 'update')->name('update')->where(['id' => '[0-9]+']);
                 Route::delete('{id}', 'destroy')->name('destroy')->where(['id' => '[0-9]+']);
+                Route::post('{id}/restore', 'restore')->name('restore')->where(['id' => '[0-9]+']);
+                Route::delete('{id}/force', 'forceDelete')->name('forceDelete')->where(['id' => '[0-9]+']);
             });
     });

@@ -85,6 +85,15 @@
                             <div class="fs-5 fw-bold">Updated at</div>
                             <div>{{ $obj->updated_at->format('d.m.Y H:i') }}</div>
                         </div>
+
+                        <div class="py-2">
+                            <div class="fs-5 fw-bold">Deleted at</div>
+                            <div>@if($obj->deleted_at)
+                                    {{ $obj->deleted_at->format('d.m.Y H:i') }}
+                                @else
+                                     <div>Null</div>
+                            @endif</div>
+                        </div>
                     </div>
                 </div>
             </div>

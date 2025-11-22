@@ -21,7 +21,7 @@ class ClientController extends Controller
         $f_location = $request->has('location') ? $request->location : null;
         $f_client = $request->has('client') ? $request->client : null;
 
-        $objs = Client::whereNotNull('last_seen')
+        $objs = Client::withTrashed()
             ->when(isset($f_location), fn($query) => $query->where('location_id', $f_location))
             ->when(isset($f_client), fn($query) => $query->where('id', $f_client))
             ->with('location')
@@ -37,7 +37,7 @@ class ClientController extends Controller
 
     public function show($id)
     {
-        $obj = Client::where('id', $id)
+        $obj = Client::where('id', $id)->withTrashed()
             ->with('location', 'works.freelancer', 'myReviews.freelancer', 'freelancerReviews')
             ->withCount('works', 'myReviews')
             ->firstOrFail();
@@ -114,8 +114,32 @@ class ClientController extends Controller
     public function destroy($id)
     {
         $obj = Client::findOrFail($id);
-        $obj->username = $obj->username . '_deleted_' . time();
         $obj->delete();
+
+        return to_route('auth.clients.index')
+            ->with([
+                'success' => 'Client deleted',
+            ]);
+    }
+
+    public function restore($id)
+    {
+        $obj = Client::onlyTrashed()->findOrFail($id);
+
+        if ($obj->trashed()) {
+            $obj->restore();
+        }
+
+        return to_route('auth.clients.index')
+            ->with([
+                'success' => 'Client restored',
+            ]);
+    }
+
+    public function forceDelete($id)
+    {
+        $obj = Client::onlyTrashed()->findOrFail($id);
+        $obj->forceDelete();
 
         return to_route('auth.clients.index')
             ->with([

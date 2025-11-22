@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->unsignedTinyInteger('hours_per_week')->default(0);
             $table->dateTime('last_viewed')->useCurrent();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

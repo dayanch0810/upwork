@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->text('cover_letter');
             $table->unsignedTinyInteger('status')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

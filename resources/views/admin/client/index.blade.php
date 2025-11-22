@@ -31,7 +31,8 @@
                 <th>Total Spent</th>
                 <th>Works</th>
                 <th>Reviews</th>
-                <th>Created At</th>
+                <th>Deleted At</th>
+                <th class="text-center"><i class="bi-gear"></i></th>
             </tr>
             </thead>
             <tbody>
@@ -65,7 +66,71 @@
                     <td><i class="bi-currency-dollar"></i>{{ $obj->total_spent }}</td>
                     <td><a href="{{ route('auth.works.index', ['client' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
                     <td><a href="{{ route('auth.reviews.index', ['client' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->my_reviews_count }}</a></td>
-                    <td>{{ $obj->created_at->format('d.m.Y H:i') }}</td>
+                    <td>
+                        @if ($obj->deleted_at)
+                            <div class="badge bg-danger-subtle text-danger-emphasis">{{ $obj->deleted_at->format('d.m.Y H:i') }}</div>
+                        @else
+                            <div class="badge bg-success-subtle text-success-emphasis">Null</div>
+                        @endif
+                    </td>
+                    <td class="text-center">
+                        <div class="mb-1">
+                            @if($obj->deleted_at)
+                                <form method="POST" action="{{ route('auth.clients.restore', $obj->id) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success btn-sm">
+                                        <i class="bi-arrow-counterclockwise"></i>
+                                    </button>
+                                </form>
+                            @else
+                                <form action="{{ route('auth.clients.edit', $obj->id) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success btn-sm">
+                                        <i class="bi-pencil-fill"></i>
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
+                        <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $obj->id }}">
+                            @if($obj->deleted_at)
+                                <i class="bi-trash"></i>
+                            @else
+                                <i class="bi-trash-fill"></i>
+                            @endif
+                        </button>
+                        <div class="modal fade" id="deleteModal{{ $obj->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="modal-title fs-5" id="deleteModalLabel">Delete</div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{ $obj->id }}
+                                    </div>
+                                    <div class="modal-footer">
+                                        @if($obj->deleted_at)
+                                            <form method="POST" action="{{ route('auth.clients.forceDelete', $obj->id) }}">
+                                                @csrf
+                                                {{ method_field('DELETE') }}
+
+                                                <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-dark btn-sm">Delete</button>
+                                            </form>
+                                        @else
+                                            <form method="POST" action="{{ route('auth.clients.destroy', $obj->id) }}">
+                                                @csrf
+                                                {{ method_field('DELETE') }}
+
+                                                <button type="button" class="btn btn-light btn-sm" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-dark btn-sm">Delete</button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

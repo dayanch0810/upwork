@@ -22,7 +22,7 @@ class AuthController extends Controller
     public function verify(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => ['required', 'email', 'unique:clients,username'],
+            'username' => ['required', 'email'],
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -51,8 +51,7 @@ class AuthController extends Controller
     public function confirm(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'location' => ['nullable', 'integer', 'min:0'],
-            'username' => ['required', 'email', 'unique:clients,username'],
+            'username' => ['required', 'email'],
             'code' => ['required', 'integer', 'between:10000,99999'],
         ]);
         if ($validator->fails()) {
@@ -62,7 +61,6 @@ class AuthController extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $locations = Location::get();
         $verification = Verification::where('username', $request->username)
             ->where('code', $request->code)
             ->where('method', 1)
@@ -75,7 +73,17 @@ class AuthController extends Controller
             $verification->status = 1;
             $verification->update();
 
-            $client = Client::where('username', $request->username)->first();
+            $client = Client::withTrashed()->where('username', $request->username)->first();
+
+            if ($client && $client->trashed()) {
+                $client->restore();
+                auth('client_web')->login($client);
+
+                return to_route('client.home')
+                    ->with([
+                        'success' => trans('Successfully Logged In'),
+                    ]);
+            }
 
             if ($client) {
                 $client->update();
@@ -90,7 +98,6 @@ class AuthController extends Controller
                     ->with([
                         'username' => $request->username,
                         'code' => $request->code,
-                        'locations' => $locations,
                     ]);
             }
         } else {
@@ -164,11 +171,11 @@ class AuthController extends Controller
         $client = Auth::guard('client_web')->user();
 
         if ($client) {
-            $client->last_seen = null;
-            $client->save();
+            $client->delete();
         }
 
         Auth::guard('client_web')->logout();
+
         $request->session()->regenerate();
 
         return redirect('/');
